@@ -1096,7 +1096,7 @@ body.hk-on #rotate{display:none!important}
 
 /* ===== mobile perf (v14): street frozen & hidden under rooms/finale; no backdrop blur / reflections on touch screens ===== */
 body.cover>#street,body.cover>.vignette,body.cover>.hud,body.cover>.arrow,body.cover>.book{visibility:hidden}
-body.cover>#street *{animation-play-state:paused!important}
+body.cover>#street *,#scn.scrolling *{animation-play-state:paused!important}
 @media (pointer:coarse){
   *,*::before,*::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
   .hk-p{-webkit-box-reflect:none!important}
@@ -4280,8 +4280,12 @@ function hkAnnounce(){if(curMode||hkOn)return;street.scrollTo({left:street.scrol
 /* ===== scrolling ===== */
 const street=$('#street'),scene=$('#scene');let sceneW=0;
 function layout(){const h=street.clientHeight,w=street.clientWidth;sceneW=Math.max(h*W/1000,w);scene.style.width=sceneW+'px';scene.style.setProperty('--u',(sceneW/W).toFixed(4));onScroll()}
-let raf=0;function onScroll(){if(raf)return;raf=requestAnimationFrame(()=>{raf=0;const sl=street.scrollLeft,k=W/sceneW;
-  $('#far').setAttribute('transform',`translate(${(sl*k*.45).toFixed(1)},0)`);$('#mid').setAttribute('transform',`translate(${(sl*k*.22).toFixed(1)},0)`);
+/* touch screens: no parallax (it repainted the whole street SVG every scroll frame → blank tiles) and the street's own
+   animations pause while a swipe is in progress, so the phone only has to draw the new part of the street */
+const LITE=matchMedia('(pointer:coarse)').matches,SCN=$('#scn');let scrT=null;
+let raf=0;function onScroll(){if(LITE){SCN.classList.add('scrolling');clearTimeout(scrT);scrT=setTimeout(()=>SCN.classList.remove('scrolling'),220)}
+  if(raf)return;raf=requestAnimationFrame(()=>{raf=0;const sl=street.scrollLeft,k=W/sceneW;
+  if(!LITE)$('#far').setAttribute('transform',`translate(${(sl*k*.45).toFixed(1)},0)`);if(!LITE)$('#mid').setAttribute('transform',`translate(${(sl*k*.22).toFixed(1)},0)`);
   $('#arL').classList.toggle('off',sl<10);$('#arR').classList.toggle('off',sl>sceneW-street.clientWidth-10);if(!pop.hidden)hidePop()})}
 street.addEventListener('scroll',onScroll,{passive:true});
 street.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){street.scrollLeft+=e.deltaY;e.preventDefault()}},{passive:false});
