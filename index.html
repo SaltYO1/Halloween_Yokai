@@ -1101,6 +1101,32 @@ body.cover>#street *,#scn.scrolling *{animation-play-state:paused!important}
   *,*::before,*::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
   .hk-p{-webkit-box-reflect:none!important}
 }
+
+/* long ema names (からかさおばけ): two lines, broken only between からかさ / おばけ (v16) */
+.e-name{word-break:keep-all;overflow-wrap:normal}
+.e-name.two{line-height:1.35;padding-top:.05em;padding-bottom:.05em}
+@media (orientation:landscape) and (max-height:500px){#mode .e-name{font-size:15px;padding:0 4px;max-width:none;margin:0 -6px}}
+
+/* ===== save / load progress (v16) ===== */
+#sv{--acc:var(--lantern-hot);position:fixed;inset:0;z-index:72;display:grid;place-items:center;padding:16px;background:rgba(5,3,8,.86)}
+.sv-card{max-width:min(400px,94vw);gap:8px;max-height:calc(100dvh - 24px);overflow:auto}
+.sv-card .in-t{font-size:24px;line-height:1.4}
+.sv-lead{margin:0;font-size:16px;line-height:2.1;text-align:center}
+.sv-sum{display:flex;align-items:center;gap:6px}
+.sv-sum i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1.5px dashed rgba(243,230,204,.28);color:rgba(243,230,204,.35)}
+.sv-sum i svg{width:16px;height:16px;fill:currentColor}
+.sv-sum i.on{border:0;background:var(--vermilion);color:var(--paper);box-shadow:0 0 10px rgba(208,67,43,.55)}
+.sv-sum b{margin-left:6px;font-size:13px;font-weight:700;color:var(--paper-dim)}
+.sv-sum b rt{font-size:.5em}
+.sv-hint{max-width:none;text-align:center;margin:0}
+.sv-row{display:flex;gap:10px;justify-content:center;align-items:center;width:100%}
+.sv-row .g-btn{padding:6px 18px;font-size:15px}
+.sv-in input{flex:1;min-width:0;padding:6px 12px;border-radius:999px;border:1px solid var(--acc);background:rgba(0,0,0,.45);color:var(--paper);font:700 14px/1.6 var(--f-body);outline:none;user-select:text;-webkit-user-select:text}
+.sv-msg{margin:0;min-height:1.6em;font-size:14px;line-height:1.6;font-weight:700;color:var(--onibi);text-align:center}
+.sv-msg.bad{color:#ff8a6a}
+.sv-x{background:none!important;border-color:transparent!important;color:var(--paper-dim);padding:2px 12px!important;font-size:14px!important}
+@media (orientation:landscape) and (max-height:500px){.sv-card{padding:12px 18px 12px}.sv-card .in-t{font-size:20px}.sv-lead{font-size:15px;line-height:1.9}}
+#pop,#tip{z-index:80}
 /*@@LAND@@*//* ===== short landscape phones (v14): one slim header row, content fits the screen ===== */
 @media (orientation:landscape) and (max-height:500px){
   #mode{--ah:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px) - 110px)}
@@ -1687,6 +1713,7 @@ body.cover>#street *,#scn.scrolling *{animation-play-state:paused!important}
 <nav class="book" aria-label="stamps">
   <span class="book-label"><ruby>御朱印帳<rt>ごしゅいんちょう</rt></ruby></span>
   <div class="seals" id="seals"></div>
+  <button class="reset" id="saveBtn" data-tip="Сохранить или загрузить прогресс (ссылка для ученика)"><svg viewBox="0 0 24 24"><path d="M5 8h13l-3.5-3.5M19 16H6l3.5 3.5"/></svg></button>
   <button class="reset" id="resetBtn" data-tip="Стереть все печати"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4"/></svg></button>
 </nav>
 
@@ -1705,6 +1732,17 @@ body.cover>#street *,#scn.scrolling *{animation-play-state:paused!important}
     <button class="g-btn g-inst" id="instBtn" hidden data-tip="Установить игру на телефон как приложение"><svg viewBox="0 0 24 24"><path d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM12 7v7M9 11l3 3 3-3M11 18.5h2"/></svg>アプリを インストール</button>
   </div>
 </section>
+<div id="sv" hidden role="dialog" aria-modal="true"><div class="in-card sv-card">
+  <h3 class="in-t">セーブ</h3>
+  <p class="sv-lead"></p>
+  <div class="sv-sum"></div>
+  <p class="hint sv-hint"></p>
+  <div class="sv-row sv-main"><button class="g-btn go" data-sv="copy" data-tip="Скопировать ссылку с прогрессом">コピー</button><button class="g-btn" data-sv="load" data-tip="Вставить ссылку или код от ученика / учителя">よみこむ</button></div>
+  <div class="sv-row sv-in" hidden><input id="svCode" autocomplete="off" spellcheck="false" placeholder="https://… / コード"><button class="g-btn go" data-sv="ok" data-tip="Загрузить этот прогресс">OK</button></div>
+  <div class="sv-row sv-take" hidden><button class="g-btn go" data-sv="take" data-tip="Заменить текущий прогресс присланным">よみこむ</button></div>
+  <p class="sv-msg" aria-live="polite"></p>
+  <button class="g-btn sv-x" data-sv="x">とじる</button>
+</div></div>
 <div id="inst" hidden role="dialog" aria-modal="true"><div class="in-card"><h3 class="in-t">ホーム<ruby>画面<rt>がめん</rt></ruby>に <ruby>追加<rt>ついか</rt></ruby></h3><div class="in-b"></div><button class="g-btn go" data-x="1">とじる</button></div></div>
 
 <!-- mode room -->
@@ -2785,7 +2823,7 @@ let justY=null;
 function emaHTML(k,got,cur,just,idx){const Y=YK[k],a=ART[k]();
   return `<div class="e-slot${got?' got':''}"><div class="ema${got?' got':''}${cur?' cur':''}${just?' just':''}" data-g="ema" data-y="${k}" role="button" tabindex="0" aria-label="${got?Y.ru:'?'}" style="--d:${(-idx*.9).toFixed(1)}s">${EFRAME}
     <span class="pic"><svg class="ink" viewBox="0 0 156 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${a}</svg><svg class="col" viewBox="0 0 156 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${a}</svg></span><span class="bloom"></span></div>
-    <div class="e-name${got?'':' q'}">${got?jp(Y.name):'？？？'}</div></div>`}
+    <div class="e-name${got?'':' q'}${got&&/おばけ=/.test(Y.name)?' two':''}">${got?jp(Y.name).replace(/からかさおばけ/,'からかさ<wbr>おばけ'):'？？？'}</div></div>`}
 function guessStage(id,P,y){const Y=YK[y],lv=level,solved=P.got.includes(y),just=justY===y;
   const riddle=`<article class="g-card riddle"><div class="g-txt"><div class="g-no">${jp('{おだい=загадка, задание}')} <b>${P.i+1}</b><span class="of-n">/ ${YORD.length}</span></div>
     <p class="g-q">${jp(Y.d[lv])}</p><p class="hint">${Y.h}</p>
@@ -4272,7 +4310,7 @@ function hkAnnounce(){if(curMode||hkOn)return;street.scrollTo({left:street.scrol
  setTimeout(()=>{if(curMode||hkOn)return;eggRect=$('#hkGate .hg-in').getBoundingClientRect();SFX.ting();toast(0,0,`{とりいが=тории (が)}${sp()}{あらわれた=появились|あらわれる: появляться}……！`,'{百鬼夜行(ひゃっきやこう)=ночное шествие ёкаев}')},1300)}
 /* hidden start: hold the stamp book for 3 s */
 (()=>{const bk=$('.book');let t=null,xy=null;const stop=()=>{clearTimeout(t);t=null;bk.classList.remove('charge')};
- bk.addEventListener('pointerdown',e=>{if(hkOn||curMode||e.target.closest('#resetBtn'))return;xy=[e.clientX,e.clientY];bk.classList.add('charge');clearTimeout(t);
+ bk.addEventListener('pointerdown',e=>{if(hkOn||curMode||e.target.closest('#resetBtn,#saveBtn'))return;xy=[e.clientX,e.clientY];bk.classList.add('charge');clearTimeout(t);
   t=setTimeout(()=>{t=null;bk.classList.remove('charge');hkBookFired=true;hideTip();hkOpen(xy[0],xy[1])},3000)});
  bk.addEventListener('pointermove',e=>{if(t&&xy&&Math.hypot(e.clientX-xy[0],e.clientY-xy[1])>14)stop()});
  ['pointerup','pointercancel','pointerleave'].forEach(n=>bk.addEventListener(n,()=>{stop();if(hkBookFired)setTimeout(()=>{hkBookFired=false},450)}))})();
@@ -4359,11 +4397,54 @@ $$('.lvl').forEach(b=>b.addEventListener('click',()=>{ac();setLevel(b.dataset.lv
 /* ===== dev check: every kanji must sit inside <ruby> ===== */
 function checkRuby(){const tw=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=tw.nextNode()){if(/[一-鿿]/.test(n.nodeValue)&&!n.parentElement.closest('ruby,script,style,title'))console.warn('Kanji without furigana:',n.nodeValue)}}
 
+/* ===== save / load progress: a link (or a code) carries level + stamps + room progress + the lab yokai ===== */
+const SV=$('#sv');let svIncoming=null;
+function b64u(u){let t='';for(let i=0;i<u.length;i+=8192)t+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return btoa(t).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function ub64(t){t=t.replace(/-/g,'+').replace(/_/g,'/');const b=atob(t);return Uint8Array.from(b,c=>c.charCodeAt(0))}
+async function svEnc(o){const t=JSON.stringify(o);
+  try{const b=await new Response(new Blob([t]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer();return 'z'+b64u(new Uint8Array(b))}
+  catch(e){return 'j'+b64u(new TextEncoder().encode(t))}}
+async function svDec(c){c=(c||'').trim();const m=c.match(/[#&?]s=([A-Za-z0-9_-]+)/);if(m)c=m[1];c=c.replace(/[^A-Za-z0-9_-]/g,'');
+  const k=c[0],u=ub64(c.slice(1));let t;
+  if(k==='z')t=await new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).text();
+  else if(k==='j')t=new TextDecoder().decode(u);else throw new Error('bad');
+  const o=JSON.parse(t);if(!o||o.v!==1||!Array.isArray(o.s)||typeof o.p!=='object')throw new Error('bad');return o}
+const svWeb=(()=>{try{return /^https?:/.test(location.protocol)&&window.top===window.self}catch(e){return false}})();
+function svSum(st,lv){const S=new Set(st);
+  return ['1','2','3','4','5'].map(id=>`<i class="${S.has(id)?'on':''}">${ICON[id]}</i>`).join('')+`<b>${lv==='hard'?'<ruby>中級<rt>ちゅうきゅう</rt></ruby>':'<ruby>初級<rt>しょきゅう</rt></ruby>'}</b>`}
+function svMsg(t,bad){const m=SV.querySelector('.sv-msg');m.innerHTML=t?jp(t):'';m.classList.toggle('bad',!!bad)}
+function svOpen(inc){hidePop();hideTip();svIncoming=inc||null;
+  SV.querySelector('.sv-lead').innerHTML=jp(inc?'{セーブデータが=сохранение (が)} {とどきました=пришло|とどく: доходить, приходить}！':'{リンクを=ссылку (を)} {おくると=если отправить|〜と: «если / когда»}、{つづきから=с того же места} {あそべます=можно играть|あそぶ → あそべる: «можно играть»}');
+  SV.querySelector('.sv-sum').innerHTML=inc?svSum(inc.s,inc.l):svSum([...stamps],level);
+  SV.querySelector('.sv-hint').textContent=inc?'По ссылке пришёл прогресс: печати выше. «よみこむ» заменит текущий прогресс на этом устройстве.':'«コピー» копирует ссылку с печатями, прогрессом комнат и созданным ёкаем — отправьте её ученику. «よみこむ» — вставить присланную ссылку или код.';
+  SV.querySelector('.sv-main').hidden=!!inc;SV.querySelector('.sv-take').hidden=!inc;SV.querySelector('.sv-in').hidden=true;
+  $('#svCode').value='';svMsg('');SV.hidden=false}
+function svClose(){SV.hidden=true;svIncoming=null}
+function svApply(o){store.set('obake-level',o.l==='hard'?'hard':'easy');store.set('obake-stamps',o.s.map(String));store.set('obake-prog',o.p);
+  try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}SFX.stamp();setTimeout(()=>location.reload(),350)}
+async function svCopy(){const code=await svEnc({v:1,l:level,s:[...stamps],p:prog});
+  const text=svWeb?location.origin+location.pathname+'#s='+code:code;
+  let ok=false;try{await navigator.clipboard.writeText(text);ok=true}catch(e){}
+  if(!ok){const inp=$('#svCode');SV.querySelector('.sv-in').hidden=false;inp.value=text;inp.focus();inp.select();try{ok=document.execCommand('copy')}catch(e){}}
+  SFX.ting();svMsg(ok?'{コピーしました=скопировано}！':'{コピーして=скопируй} {ください=пожалуйста}',!ok)}
+SV.addEventListener('click',async e=>{const b=e.target.closest('[data-sv]');if(!b){if(e.target===SV)svClose();return}const a=b.dataset.sv;
+  if(a==='x')svClose();
+  else if(a==='copy')svCopy();
+  else if(a==='load'){SV.querySelector('.sv-in').hidden=false;const inp=$('#svCode');inp.value='';inp.focus();svMsg('');
+    try{const t=await navigator.clipboard.readText();if(/s=|^[zj][A-Za-z0-9_-]{20,}$/.test((t||'').trim()))inp.value=t.trim()}catch(e){}}
+  else if(a==='ok'){try{svApply(await svDec($('#svCode').value))}catch(err){SFX.low();svMsg('{コードが=код (が)} {ちがいます=неверный|ちがう: отличаться, быть не тем}',true)}}
+  else if(a==='take'&&svIncoming)svApply(svIncoming)});
+$('#svCode').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();SV.querySelector('[data-sv=ok]').click()}});
+$('#saveBtn').addEventListener('click',e=>{e.stopPropagation();svOpen()});
+(async()=>{if(!/[#&]s=/.test(location.hash))return;try{const o=await svDec(location.hash);svOpen(o)}catch(e){}
+  try{history.replaceState(history.state,'',location.pathname+location.search)}catch(e){}})();
+
 /* ===== back gesture / back button: one history guard entry; back closes the topmost layer ===== */
 let bkArm=0,bkT=null;
 function bkPush(){try{if(!(history.state&&history.state.obake))history.pushState({obake:1},'')}catch(e){}}
 function bkBack(){
   if(!pop.hidden){hidePop();return true}
+  if(!SV.hidden){svClose();return true}
   const ib=$('#inst');if(ib&&!ib.hidden){ib.hidden=true;return true}
   if(hkOn){if(hkBub)hkUnsay();else hkClose();return true}
   if(curMode){if(GAMES[curMode]==='story'&&st4().s){const lb=$('#mBody [data-g="lib"]');if(lb){lb.click();return true}}closeMode();return true}
