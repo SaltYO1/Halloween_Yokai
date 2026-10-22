@@ -2,7 +2,7 @@
 <title>おばけ横丁</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yusei+Magic&family=Zen+Maru+Gothic:wght@500;700;900&family=DotGothic16&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yusei+Magic&family=Yuji+Syuku&family=Zen+Maru+Gothic:wght@500;700;900&family=DotGothic16&display=swap">
 <style>
 /* Layout: one panoramic night street (3.6:1) scrolled sideways; HUD floats over the sky, a stamp book sits on the pavement. */
 :root{
@@ -688,8 +688,10 @@ rt{font-family:var(--f-body);font-weight:700;font-size:.48em;letter-spacing:0;op
 .st-opt.ok{border-color:var(--onibi);background:rgba(134,240,221,.12)}
 .st-opt.ok .st-mk{background:var(--onibi);border-color:var(--onibi);color:#0b1a17}
 .st-opt.ng{opacity:.45}.st-opt.ng .st-mk{border-style:dashed}
-.st-opt.pick{border-color:#ff8a6a;background:rgba(208,67,43,.16)}
-.st-opt.pick .st-mk{background:var(--vermilion);border-color:var(--vermilion);color:var(--paper)}
+.st-opt.pick{border-color:#f2c46b;background:rgba(242,196,107,.13);box-shadow:0 0 18px rgba(242,196,107,.18)}
+.st-opt.pick .st-mk{background:linear-gradient(#ffd98c,#e7a94a);border-color:#f2c46b;color:#2a1608}
+.st-opt.pick .st-ot::after{content:"よそう";display:inline-block;margin-left:.6em;padding:0 .6em;border-radius:1em;font-size:.62em;line-height:1.7;vertical-align:.25em;font-weight:700;color:#2a1608;background:#f2c46b}
+.st-q.nx.done .st-opt:not(.pick){opacity:.6}
 .st-q.done:not(.nx) .st-opt:not(.ok){opacity:.4}
 .st-opt.shake{animation:shake4 .45s}
 @keyframes shake4{20%{transform:translateX(-6px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
@@ -1206,6 +1208,102 @@ body.cover>#street *,#scn.scrolling *{animation-play-state:paused!important}
   #mode .m-title,#mode.playing .m-title{font-size:18px;max-width:calc(100% - 230px)}
 }
 /*@@LANDEND@@*/
+/* ===== goshuin pages, hanko ritual, opening book (v19) ===== */
+.gs-pg{--pw:240px;--ink:#1b1410;position:relative;width:var(--pw);height:calc(var(--pw)*1.47);flex:none;color:var(--ink);overflow:visible;
+  background:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.35),transparent 60%),repeating-linear-gradient(97deg,rgba(120,90,50,.035) 0 1px,transparent 1px 7px),#f4ead6;
+  box-shadow:inset 0 0 0 1px rgba(90,60,30,.15),inset 0 0 calc(var(--pw)*.12) rgba(140,100,50,.18)}
+.gs-pg .w:hover,.gs-pg .w.sel{color:#b5321e;text-shadow:none}
+.gs-pg rt{color:#6a4a2c;font-size:.36em}
+.gs-sw{position:absolute;left:50%;top:51%;width:calc(var(--pw)*.74);aspect-ratio:1;transform:translate(-50%,-50%) rotate(-3deg)}
+.gs-sw>.gs-art{display:block;width:100%;height:100%;mix-blend-mode:multiply;opacity:.93}
+.gs-name{position:absolute;inset:5% 0;display:flex;align-items:center;justify-content:center;
+  font-family:"Yuji Syuku","Yusei Magic","Hiragino Mincho ProN","Yu Mincho","Noto Serif CJK JP","Noto Serif JP",serif;font-size:calc(var(--pw) * min(.17, .92 / (var(--nc,4) + .6)));line-height:1.1;letter-spacing:.02em;
+  text-shadow:0 0 1px rgba(27,20,16,.5)}
+.gs-nv{writing-mode:vertical-rl;white-space:nowrap}
+.gs-name rt{font-family:var(--f-body)}
+.gs-hp,.gs-date{position:absolute;writing-mode:vertical-rl;white-space:nowrap;font-family:"Yuji Syuku","Yusei Magic","Hiragino Mincho ProN","Yu Mincho","Noto Serif CJK JP","Noto Serif JP",serif;line-height:1.15}
+.gs-hp{right:calc(var(--pw)*.06);top:calc(var(--pw)*.06);font-size:calc(var(--pw)*.075)}
+.gs-date{left:calc(var(--pw)*.05);bottom:calc(var(--pw)*.07);font-size:calc(var(--pw)*.058);line-height:1.9}
+.gs-mini{position:absolute;right:calc(var(--pw)*.2);top:calc(var(--pw)*.07);width:calc(var(--pw)*.12);transform:rotate(4deg);mix-blend-mode:multiply;opacity:.9}
+.gs-mini svg{display:block;width:100%}
+/* empty pages: a faint promise of the stamp */
+.gs-pg.empty .gs-sw{opacity:.11;filter:grayscale(1)}
+.gs-pg.empty .gs-name{opacity:.28}
+.gs-pg.empty.sec .gs-sw{opacity:.38;filter:none;top:37%;width:calc(var(--pw)*.6)}
+.gs-sh{position:absolute;left:8%;right:8%;bottom:6%;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;font-size:calc(var(--pw)*.06);line-height:2;font-weight:700;color:#4a2e6e}
+.gs-sh b{font:900 calc(var(--pw)*.07)/1.3 var(--f-body);color:#6c3aa6;letter-spacing:.06em}
+.gs-sh .hint{color:#7a6a8a;font-size:12px;line-height:1.4;margin:0;max-width:none}
+.gs-pg.sec:not(.empty){box-shadow:inset 0 0 0 1px rgba(108,58,166,.3),inset 0 0 calc(var(--pw)*.16) rgba(140,90,200,.22)}
+/* the ritual: hanko drops, ink appears, then the brush writes */
+.gs-hk{position:absolute;left:50%;bottom:50%;width:60%;margin-left:-30%;transform-origin:50% 100%;pointer-events:none;z-index:3;opacity:0;filter:drop-shadow(0 10px 8px rgba(0,0,0,.35));animation:gsHk 1.3s cubic-bezier(.55,0,.35,1) var(--d,0s) forwards}
+.gs-hk svg{display:block;width:100%}
+@keyframes gsHk{0%{opacity:0;transform:translateY(-110%)}22%{opacity:1;transform:translateY(-70%)}46%{transform:translateY(40%) scaleY(1)}52%{transform:translateY(44%) scaleY(.92)}62%{opacity:1;transform:translateY(38%) scaleY(1)}100%{opacity:0;transform:translateY(-160%)}}
+.gs-pg.fresh .gs-sw>.gs-art{animation:gsInk .7s ease-out calc(var(--d,0s) + .62s) both}
+@keyframes gsInk{0%{opacity:0;transform:scale(1.06);filter:blur(2px)}35%{opacity:.98}100%{opacity:.93;transform:none;filter:none}}
+.gs-pg.fresh .gs-sw::after{content:"";position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle,rgba(192,48,28,.28),transparent 70%);opacity:0;animation:gsBlot .9s ease-out calc(var(--d,0s) + .62s)}
+@keyframes gsBlot{0%{opacity:1;transform:scale(.6)}100%{opacity:0;transform:scale(1.25)}}
+.gs-pg.fresh{animation:gsThud .25s ease-out calc(var(--d,0s) + .62s)}
+@keyframes gsThud{40%{transform:translateY(3px) scale(.995)}}
+.gs-pg.fresh .gs-name,.gs-pg.fresh .gs-hp,.gs-pg.fresh .gs-date,.gs-pg.fresh .gs-mini{animation:gsBrush 1s cubic-bezier(.4,0,.2,1) calc(var(--d,0s) + 1.3s) both}
+.gs-pg.fresh .gs-hp{animation-delay:calc(var(--d,0s) + 1.1s)}.gs-pg.fresh .gs-mini{animation:gsMiniIn .35s ease-out calc(var(--d,0s) + 1.05s) both}.gs-pg.fresh .gs-date{animation-delay:calc(var(--d,0s) + 2s)}
+@keyframes gsBrush{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 -10% 0)}}
+@keyframes gsMiniIn{from{opacity:0;transform:rotate(4deg) scale(1.4)}to{opacity:.9;transform:rotate(4deg)}}
+.gs-pg.five,.ld-seal.five{animation:gsFive 1.8s ease-out}
+@keyframes gsFive{0%{box-shadow:0 0 0 rgba(196,155,255,0)}30%{box-shadow:0 0 60px 12px rgba(196,155,255,.75)}100%{box-shadow:0 0 0 rgba(196,155,255,0)}}
+.gs-five{opacity:0;color:var(--violet)!important;font-weight:900;text-shadow:0 0 14px rgba(196,155,255,.7);animation:fadeUp .6s ease-out 2.2s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.g-fin .gs-pg{--pw:clamp(150px,22vw,200px);margin:4px 0 2px;box-shadow:0 14px 34px rgba(0,0,0,.5),inset 0 0 0 1px rgba(90,60,30,.15),inset 0 0 26px rgba(140,100,50,.18);transform:rotate(-1.5deg)}
+.g-fin .gs-pg.fresh{animation:gsThudR .25s ease-out calc(var(--d,0s) + .62s)}
+@keyframes gsThudR{40%{transform:rotate(-1.5deg) translateY(3px)}}
+.g-fin .gs-pg.five{animation:gsFive 1.8s ease-out}
+/* lab dossier stamp */
+.ld-seal.gs-sw{transform:rotate(-8deg);top:clamp(64px,7.5vw,92px);width:clamp(70px,9vw,100px);height:auto;aspect-ratio:1;left:auto;border-radius:50%}
+.ld-seal.gs-sw .gs-hk{width:62%;margin-left:-31%}
+.ld-seal.fresh>.gs-art{animation:gsInk .7s ease-out .87s both}
+.ld-seal .gs-hk{--d:.25s}
+/* street book: the label and the little book button open it; fifth stamp = a wave of light */
+.book-label{cursor:pointer}
+.book-label:hover{color:var(--paper)}
+.book.five{animation:gsBk 2.6s ease-out}
+@keyframes gsBk{0%,100%{box-shadow:0 .4em 1.6em rgba(0,0,0,.5)}35%{border-color:rgba(196,155,255,.9);box-shadow:0 0 44px rgba(196,155,255,.75)}}
+.seal.wave{animation:gsWave .7s cubic-bezier(.3,1.6,.5,1) var(--wd,0s) both}
+@keyframes gsWave{0%{transform:rotate(-10deg)}45%{transform:rotate(-10deg) scale(1.35) translateY(-6px);box-shadow:0 0 24px 6px rgba(196,155,255,.85)}100%{transform:rotate(-10deg)}}
+/* the opened book */
+#gs{--acc:var(--lantern-hot);position:fixed;inset:0;z-index:73;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:calc(env(safe-area-inset-top,0px) + 12px) 0 calc(env(safe-area-inset-bottom,0px) + 12px);
+  background:radial-gradient(ellipse 80% 60% at 50% 45%,rgba(60,34,80,.55),transparent 70%),rgba(5,3,8,.93)}
+.gs-top{display:flex;align-items:center;gap:12px;padding:0 16px}
+.gs-top h3{margin:0;font:400 28px/1.5 var(--f-display);color:var(--lantern-hot);text-shadow:0 0 14px rgba(255,150,60,.6)}
+.gs-top h3 rt{font-size:.42em}
+.gs-cnt{font:900 15px/1 var(--f-body);color:var(--paper-dim);padding:6px 11px;border-radius:999px;border:1px solid var(--line);letter-spacing:.05em}
+.gs-sub{min-height:0;margin:0;font:900 18px/2 var(--f-body);color:var(--violet);text-shadow:0 0 14px rgba(196,155,255,.7)}
+.gs-sub:empty{display:none}
+.gs-book{--pw:min(280px,62vw,calc((100dvh - 210px)/1.47));width:100%;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;scroll-snap-type:x proximity;direction:rtl;-webkit-overflow-scrolling:touch;padding:18px 0 22px}
+.gs-book::-webkit-scrollbar{display:none}
+.gs-strip{display:flex;width:max-content;margin:0 auto;padding:0 max(16px,calc(50vw - var(--pw)*.5));perspective:1600px}
+.gs-strip>*{direction:ltr}
+.gs-slot{scroll-snap-align:center;flex:none}
+.gs-book .gs-pg{--pw:min(280px,62vw,calc((100dvh - 210px)/1.47))}
+.gs-slot:nth-child(odd) .gs-pg{background-color:#f1e5cf}
+.gs-slot+.gs-slot .gs-pg{box-shadow:inset -1px 0 0 rgba(90,60,30,.28),inset 0 0 calc(var(--pw)*.12) rgba(140,100,50,.18)}
+.gs-slot:nth-child(even) .gs-pg::before,.gs-slot:nth-child(odd) .gs-pg::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(80,50,20,.13),transparent 9%,transparent 91%,rgba(80,50,20,.1))}
+#gs.open .gs-slot{animation:gsUnf .55s cubic-bezier(.2,.8,.3,1) calc(var(--i)*.07s) both;transform-origin:100% 50%}
+@keyframes gsUnf{from{transform:rotateY(-80deg);opacity:0}to{transform:none;opacity:1}}
+.gs-cv{flex:none;width:calc(var(--pw)*.98);height:calc(var(--pw)*1.47*1.02);align-self:center;border-radius:6px;position:relative;
+  background:radial-gradient(circle at 50% 50%,rgba(255,215,140,.18) 0 2px,transparent 2.5px) 0 0/18px 18px,linear-gradient(135deg,#2b2160,#1a1440 55%,#2b1d50);
+  box-shadow:0 18px 40px rgba(0,0,0,.6),inset 0 0 0 2px rgba(201,162,90,.5),inset 0 0 0 7px rgba(26,20,64,1),inset 0 0 0 8px rgba(201,162,90,.35)}
+.gs-cv{--pw:min(280px,62vw,calc((100dvh - 210px)/1.47))}
+#gs.open .gs-cv{animation:gsUnf .5s ease-out both}
+.gs-slip{position:absolute;right:14%;top:9%;padding:14px 8px;background:#f4ead6;border:1px solid #c9a25a;writing-mode:vertical-rl;font:400 calc(var(--pw)*.12)/1.2 "Yuji Syuku","Yusei Magic","Hiragino Mincho ProN","Yu Mincho","Noto Serif CJK JP","Noto Serif JP",serif;color:#1b1410;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.gs-slip rt{font:700 .34em var(--f-body);color:#6a4a2c}
+.gs-row{display:flex;gap:10px;justify-content:center}
+.gs-row .g-btn{padding:6px 18px;font-size:15px}
+.gs-hint{margin:0;font-size:12px;color:var(--muted);text-align:center;padding:0 16px}
+@media (max-height:500px) and (orientation:landscape){
+  #gs{gap:4px}.gs-top h3{font-size:20px}.gs-book{padding:8px 0 10px}
+  .gs-book,.gs-book .gs-pg,.gs-cv{--pw:min(240px,calc((100dvh - 120px)/1.47))}
+  .gs-hint{display:none}}
+.lab-shot{z-index:76}
+@media (prefers-reduced-motion:reduce){.gs-hk{display:none}.gs-pg.fresh *,.gs-pg.fresh,#gs.open .gs-slot,#gs.open .gs-cv{animation-duration:.01s!important;animation-delay:0s!important}}
 </style>
 
 <div id="street">
@@ -1713,6 +1811,7 @@ body.cover>#street *,#scn.scrolling *{animation-play-state:paused!important}
 <nav class="book" aria-label="stamps">
   <span class="book-label"><ruby>御朱印帳<rt>ごしゅいんちょう</rt></ruby></span>
   <div class="seals" id="seals"></div>
+  <button class="reset" id="gsBtn" data-tip="Открыть книжку печатей"><svg viewBox="0 0 24 24"><path d="M3 5.5Q7.5 4 12 6.5Q16.5 4 21 5.5V19Q16.5 17.5 12 20Q7.5 17.5 3 19Z M12 6.5V20"/></svg></button>
   <button class="reset" id="saveBtn" data-tip="Сохранить или загрузить прогресс (ссылка для ученика)"><svg viewBox="0 0 24 24"><path d="M5 8h13l-3.5-3.5M19 16H6l3.5 3.5"/></svg></button>
   <button class="reset" id="resetBtn" data-tip="Стереть все печати"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4"/></svg></button>
 </nav>
@@ -1743,6 +1842,10 @@ body.cover>#street *,#scn.scrolling *{animation-play-state:paused!important}
   <p class="sv-msg" aria-live="polite"></p>
   <button class="g-btn sv-x" data-sv="x">とじる</button>
 </div></div>
+<div id="gs" hidden role="dialog" aria-modal="true"><div class="gs-top"><h3><ruby>御朱印帳<rt>ごしゅいんちょう</rt></ruby></h3><span class="gs-cnt" data-tip="Сколько печатей собрано"></span></div><p class="gs-sub"></p>
+  <div class="gs-book"><div class="gs-strip"></div></div>
+  <p class="hint gs-hint">Книжка листается справа налево, как настоящая японская. Пустые страницы ждут печатей.</p>
+  <div class="gs-row"><button class="g-btn go" data-gs="png" data-tip="Сохранить всю книжку картинкой">がぞうを ほぞん</button><button class="g-btn" data-gs="x" data-tip="Закрыть книжку">とじる</button></div></div>
 <div id="inst" hidden role="dialog" aria-modal="true"><div class="in-card"><h3 class="in-t">ホーム<ruby>画面<rt>がめん</rt></ruby>に <ruby>追加<rt>ついか</rt></ruby></h3><div class="in-b"></div><button class="g-btn go" data-x="1">とじる</button></div></div>
 
 <!-- mode room -->
@@ -2172,7 +2275,7 @@ const EGGS={
   taiko:{t:3400,f(g,x,y){SFX.drum();toast(x,y,'ドン！ ドン！ {いっしょに=вместе} {おどろう=давай танцевать|おどる → おどろう: форма «давай…»}！','{ぼんおどり=бон-одори — летний танец, встреча с духами предков}')}},
   pumpkin:{t:1800,f(g,x,y){SFX.trick();toast(x,y,'{トリック・オア・トリート=«сладость или гадость»}！','{ジャック・オー・ランタン=светильник из тыквы}')}}
 };
-function runEgg(g,e){if(g.dataset.busy)return;const k=g.dataset.egg,E=EGGS[k];g.dataset.busy=1;g.classList.add('on');eggRect=g.getBoundingClientRect();E.f(g,e.clientX,e.clientY);setTimeout(()=>{g.classList.remove('on');delete g.dataset.busy},E.t)}
+function runEgg(g,e){if(g.dataset.busy)return;const k=g.dataset.egg,E=EGGS[k];gsEgg(k);g.dataset.busy=1;g.classList.add('on');eggRect=g.getBoundingClientRect();E.f(g,e.clientX,e.clientY);setTimeout(()=>{g.classList.remove('on');delete g.dataset.busy},E.t)}
 
 /* ===== fireworks ===== */
 let fwOn=false;const FWC=['#ffb04d','#c49bff','#86f0dd','#ff7b8a','#ffd98c'];
@@ -2208,7 +2311,7 @@ function openMode(id,x,y){hidePop();deactivate(true);curMode=id;fillMode(id);
   mode.hidden=false;mode.scrollTop=0;mode.classList.remove('closing');void mode.offsetWidth;mode.classList.add('open');setCover(true,800);SFX.creak()}
 /* while a room or the finale covers the screen, the street is hidden and frozen: frees GPU memory on phones (no flicker) */
 let coverT=null;function setCover(on,ms){clearTimeout(coverT);if(on)coverT=setTimeout(()=>{if(curMode||hkOn)document.body.classList.add('cover')},ms||0);else document.body.classList.remove('cover')}
-function closeMode(){if(!curMode)return;setCover(false);mode.classList.remove('open');mode.classList.add('closing');curMode=null;SFX.whoosh();setTimeout(()=>{mode.hidden=true;mode.classList.remove('closing')},520);if(hkGateNew){hkGateNew=false;setTimeout(hkAnnounce,800)}}
+function closeMode(){if(!curMode)return;setCover(false);mode.classList.remove('open');mode.classList.add('closing');curMode=null;SFX.whoosh();setTimeout(()=>{mode.hidden=true;mode.classList.remove('closing')},520);if(gsPend)setTimeout(gsStreet,560);if(hkGateNew){hkGateNew=false;setTimeout(hkAnnounce,1500)}}
 $('#mBack').addEventListener('click',closeMode);
 $('#mStamp').addEventListener('click',()=>{if(!curMode||stamps.has(curMode))return;stamps.add(curMode);SFX.stamp();renderStamps(curMode);fillMode(curMode);const s=$('#mSeal');s.classList.remove('pop');void s.offsetWidth;s.classList.add('pop')});
 
@@ -2519,12 +2622,13 @@ function renderGame(id,dir){
   const spare=kind==='warm'?W.extra.length-P.x:0;
   let stage='';
   if(fin){
-    stage=`<div class="g-fin"><div class="big-seal" id="gSeal">${ICON[id]}</div>
+    const fresh=!stamps.has(id),five=fresh&&stamps.size===4;
+    stage=`<div class="g-fin">${gsPage(id,{fresh,d:.25})}
       <h3>${jp('{おつかれさま=спасибо, хорошо поработали|おつかれさまでした: «вы потрудились»}')}！</h3>
-      <p>${jp(`{スタンプを=печать (を)}${sp()}{もらいました=получили|もらう: получать}`)}！</p>
+      <p>${jp(`{スタンプを=печать (を)}${sp()}{もらいました=получили|もらう: получать}`)}！</p>${five?`<p class="gs-five">${jp('{ごしゅいんが=печати (が)|ごしゅいん: храмовая печать} {ぜんぶ=все} {そろった=собраны|そろう: собраться полностью}……！')}</p>`:''}
       <p class="hint">Печать уже в книжке печатей. Можно пройти ещё раз${kind==='warm'&&spare?' или взять вопросы из запаса':''}.</p>
       <div class="g-fbtns">${kind==='story'?`<button class="g-btn go" data-g="lib" data-tip="Выбрать другой свиток">ほかの${sp()}<ruby>話<rt>はなし</rt></ruby></button>`:''}${kind==='warm'&&spare?`<button class="g-btn go" data-g="more" data-tip="Ещё вопрос из запаса">もっと</button>`:''}
-      <button class="g-btn" data-g="again" data-tip="Начать сначала">もういちど</button><button class="g-btn" data-g="street" data-tip="Вернуться на улицу">まちへ もどる</button></div></div>`;
+      <button class="g-btn" data-g="book" data-tip="Открыть книжку печатей"><ruby>御朱印帳<rt>ごしゅいんちょう</rt></ruby></button><button class="g-btn" data-g="again" data-tip="Начать сначала">もういちど</button><button class="g-btn" data-g="street" data-tip="Вернуться на улицу">まちへ もどる</button></div></div>`;
   } else if(kind==='guess'){stage=guessStage(id,P,c)} else if(kind==='story'){stage=storyStage(id,P,c)} else {
     const isX=kind==='warm'&&P.i>=W.main.length;
     const no=`<div class="g-no">${jp(kind==='warm'?'{しつもん=вопрос}':'{ばめん=сцена, ситуация}')} <b>${P.i+1}</b>${isX?`<span class="tag">${jp('{おまけ=бонус, из запаса}')}</span>`:''}</div>`;
@@ -2547,7 +2651,7 @@ function renderGame(id,dir){
   const more=kind==='warm'&&!fin&&spare?`<button class="g-more" data-g="more" data-tip="Ещё вопрос из запаса">もっと <small>のこり ${spare}</small></button>`:'';
   const body=$('#mBody');
   body.innerHTML=`<div class="game"><div class="g-stage${dir?' in-'+dir:''}">${stage}</div>${nav}${more}</div>`;
-  if(fin&&!stamps.has(id)){stamps.add(id);renderStamps(id);SFX.stamp();const s=$('#gSeal');s.classList.add('pop');body.querySelector('.g-dot.fin').classList.add('got')}
+  if(fin&&!stamps.has(id)){stamps.add(id);renderStamps(id);gsAwarded(id,body);body.querySelector('.g-dot.fin').classList.add('got')}
   if(kind==='story'){if(fin){if(!P.done.includes(P.s))P.done.push(P.s)}else after4(c,dir)}
   saveProg()}
 function gGo(i,dir){if(!curMode)return;labEdit='';if(GAMES[curMode]==='story'&&!st4().s)return;const P=gp(curMode);const n=deckFor(curMode).length;i=Math.max(0,Math.min(n,i));if(i===P.i)return;if(GAMES[curMode]==='guess'&&i>(P.got||[]).length)return;P.i=i;hidePop();hideTip();renderGame(curMode,dir||'r');if(i<n)SFX.tick();mode.scrollTo({top:0,behavior:reduce?'auto':'smooth'})}
@@ -2555,6 +2659,7 @@ $('#mBody').addEventListener('click',e=>{const b=e.target.closest('[data-g]');if
   if(a==='next')gGo(P.i+1,'r');
   else if(a==='prev')gGo(P.i-1,'l');
   else if(a==='dot'){const i=+b.dataset.i;gGo(i,i<P.i?'l':'r')}
+  else if(a==='book')gsOpen(curMode);
   else if(a==='tr'){const r=b.nextElementSibling,o=r.hidden;r.hidden=!o;b.setAttribute('aria-expanded',o);b.dataset.tip=o?'Скрыть перевод':'Показать перевод';hideTip();SFX.tick()}
   else if(a==='help'){helpOpen=!helpOpen;const h=b.closest('.g-help');h.classList.toggle('open',helpOpen);b.setAttribute('aria-expanded',helpOpen);SFX.tick()}
   else if(a==='more'){const W=WARM[level];if(P.x>=W.extra.length)return;P.x++;P.i=W.main.length+P.x-1;hidePop();renderGame(curMode,'r');SFX.trick()}
@@ -2730,9 +2835,9 @@ const YK={
   dr:{easy:'Я ёкай-животное. Часто бываю в святилищах. Хвостов у меня много. Ночью я зажигаю синие огни. Я ловко превращаюсь в человека. Кто я?',
       hard:'Я ёкай-животное, известный как посланник божества святилища. Чем я старше, тем больше у меня хвостов — в конце концов их становится девять. Я мастерски превращаюсь в человека, а ночью зажигаю бледно-голубой огонь. Кто я?'},
   f:{easy:'{きつねは=лиса (тема)} {としを とると=когда стареет|としをとる: стареть; 〜と: «когда»}、{しっぽが=хвостов (が)} {ふえます=становится больше}。{いちばん=самая} {つよい=сильная} {きつねは=лиса (тема)} {しっぽが=хвостов} {九本(きゅうほん)=девять}！ {はれて いるのに=хотя ясно|〜のに: «хотя, несмотря на»} {あめが=дождь (が)} {ふる=идёт} {ことを=то, что (を)}「{きつねの=лисья} {よめいり=свадьба|よめいり: невеста переходит в дом мужа}」{と=так} {いいます=называют}。',
-     hard:'{千年(せんねん)=тысячу лет}{生(い)きた=прожившая}{狐(きつね)は=лиса (тема)}、{しっぽが=хвостов}{九本(きゅうほん)の=девять (の)}「{九尾(きゅうび)の狐(きつね)=девятихвостая лиса}」{になるという=становится, говорят|〜という: «говорят, что»}。{夜(よる)の=ночных}{山(やま)に=в горах}{ゆれる=колышущиеся}{ふしぎな=загадочные}{火(ひ)は=огни (тема)}「{狐火(きつねび)=кицунэби, лисьи огни}」。{そして=а ещё}、{晴(は)れているのに=хотя ясно|〜のに: «хотя»}{雨(あめ)が降(ふ)る=идёт дождь}{ことを=то, что (を)}「{狐(きつね)の嫁入(よめい)り=«лисья свадьба»}」{と呼(よ)ぶ=называют|よぶ: звать, называть}。{狐(きつね)の=лисьей}{花嫁(はなよめ)の=невесты (の)}{行列(ぎょうれつ)を=процессию (を)}{人(ひと)に=людям}{見(み)せないためだ=чтобы не показать|〜ため: «чтобы, ради»}{そうだ=говорят|〜そうだ: «говорят, что»}。'},
+     hard:'{千年(せんねん)=тысячу лет}{生(い)きた=прожившая}{狐(きつね)は=лиса (тема)}、{しっぽが=хвостов}{九本(きゅうほん)の=девять (の)}「{九尾(きゅうび)の狐(きつね)=девятихвостая лиса}」{になるという=становится, говорят|〜という: «говорят, что»}。{夜(よる)の=ночных}{山(やま)に=в горах}{ゆれる=колышущиеся}{ふしぎな=загадочные}{火(ひ)は=огни (тема)}「{狐火(きつねび)=кицунэби, лисьи огни}」。{そして=а ещё}、{晴(は)れているのに=хотя ясно|〜のに: «хотя»}{雨(あめ)が降(ふ)る=идёт дождь}{ことを=то, что (を)}「{狐(きつね)の嫁入(よめい)り=«лисья свадьба»}」{と呼(よ)ぶ=называют|よぶ: звать, называть}。{狐(きつね)が=лисы (が)}{花嫁(はなよめ)の=невесты}{行列(ぎょうれつ)を=процессию (を)}{人(ひと)に=людьми}{見(み)られないように=чтобы не была увидена|みられる: страдательный залог; 〜ように: «чтобы»}、{雨(あめ)を=дождь}{降(ふ)らせるのだ=насылают|ふらせる: заставить идти (о дожде)}{そうだ=говорят|〜そうだ: «говорят, что»}。'},
   fr:{easy:'С возрастом у лисы становится больше хвостов. У самой сильной лисы их девять! Когда светит солнце, а идёт дождь, это называют «лисьей свадьбой».',
-      hard:'Говорят, лиса, прожившая тысячу лет, становится «девятихвостой лисой». Загадочные огоньки, что колышутся ночью в горах, — это «кицунэби», лисьи огни. А дождь при ясном небе называют «лисьей свадьбой»: говорят, так лисы прячут от людей свадебную процессию невесты.'}},
+      hard:'Говорят, лиса, прожившая тысячу лет, становится «девятихвостой лисой». Загадочные огоньки, что колышутся ночью в горах, — это «кицунэби», лисьи огни. А дождь при ясном небе называют «лисьей свадьбой»: говорят, это лисы насылают дождь, чтобы люди не увидели их свадебную процессию.'}},
 
  oni:{ru:'Они',name:'{鬼(おに)=они, рогатый демон-великан}',sfx:()=>{SFX.ohaha();SFX.drum()},
   h:'Рога, дубина и тигровая шкура — главный злодей японских сказок.',
@@ -2748,9 +2853,9 @@ const YK={
  kasa:{ru:'Каса-обакэ',name:'{からかさおばけ=каса-обакэ, зонтик-оборотень|からかさ: старый бумажный зонт; おばけ: призрак, оборотень}',sfx:()=>SFX.boing(),
   h:'Старая вещь, которая спасает от дождя. Ты уже встречал его на улице.',
   d:{easy:'{わたしは=я} {あめの=дождливый (の)} {日(ひ)に=в день (に)} {つかう=которой пользуются} {どうぐの=вещи (の)|どうぐ: инструмент, вещь} {妖怪(ようかい)です=ёкай}。{目(め)が=глаз (が)} {一(ひと)つ=один}、{したが=язык (が)|した: язык во рту} {ながいです=длинный}。{足(あし)は=нога (тема)} {一本(いっぽん)=одна (штука)} {だけです=только}。{ぴょんぴょん=прыг-прыг} {とびます=прыгаю}。{わたしは=я} {だれ=кто}？',
-     hard:'{わたしは=я}{古(ふる)くなった=состарившейся}{道具(どうぐ)の=вещи (の)}{妖怪(ようかい)だ=ёкай}。{道具(どうぐ)は=вещи (тема)}{百年(ひゃくねん)たつと=когда пройдёт сто лет|たつ: проходить (о времени)}{魂(たましい)を=душу (を)}{持(も)つと=обретают — так|〜といわれている: «говорят, что…»}{言(い)われている=говорят}。{ふだんは=обычно}{雨(あめ)の日(ひ)に=в дождь}{役(やく)に立(た)つが=приношу пользу, но|やくにたつ: быть полезным}、{今(いま)は=сейчас}{大(おお)きな=большим}{一(ひと)つ目(め)で=единственным глазом|ひとつめ: одноглазый}{人(ひと)を=людей (を)}{にらみ=сверлю взглядом, и|にらむ: сердито смотреть}、{長(なが)い舌(した)を=длинный язык (を)}{べろんと=бе-е! (высунуть язык)}{出(だ)して=высунув}、{一本足(いっぽんあし)で=на одной ноге}{ぴょんぴょん=прыг-прыг}{跳(は)ね回(まわ)っている=скачу туда-сюда|はねまわる: скакать кругами}。{わたしは=я}{だれ=кто}？'},
+     hard:'{わたしは=я}{古(ふる)くなった=состарившейся}{道具(どうぐ)の=вещи (の)}{妖怪(ようかい)だ=ёкай}。{道具(どうぐ)は=вещи (тема)}{百年(ひゃくねん)たつと=когда пройдёт сто лет|たつ: проходить (о времени)}{魂(たましい)を=душу (を)}{持(も)つと=обретают — так|〜といわれている: «говорят, что…»}{言(い)われている=говорят}。{昔(むかし)は=раньше}{雨(あめ)の日(ひ)に=в дождь}{人(ひと)の=людям}{役(やく)に立(た)っていたが=был полезен, но|やくにたつ: быть полезным}、{今(いま)では=теперь}{大(おお)きな=большим}{一(ひと)つ目(め)で=единственным глазом|ひとつめ: одноглазый}{人(ひと)を=людей (を)}{にらみ=сверлю взглядом, и|にらむ: сердито смотреть}、{長(なが)い舌(した)を=длинный язык (を)}{べろんと=бе-е! (высунуть язык)}{出(だ)して=высунув}、{一本足(いっぽんあし)で=на одной ноге}{ぴょんぴょん=прыг-прыг}{跳(は)ね回(まわ)っている=скачу туда-сюда|はねまわる: скакать кругами}。{わたしは=я}{だれ=кто}？'},
   dr:{easy:'Я ёкай-вещь, которой пользуются в дождливый день. У меня один глаз и длинный язык. Нога — всего одна. Я скачу — прыг-прыг. Кто я?',
-      hard:'Я ёкай состарившейся вещи. Говорят, через сто лет вещи обретают душу. Обычно я выручаю в дождь, а сейчас сверлю людей огромным единственным глазом, высовываю длинный язык — бе-е! — и скачу на одной ноге. Кто я?'},
+      hard:'Я ёкай состарившейся вещи. Говорят, через сто лет вещи обретают душу. Раньше я выручал людей в дождь, а теперь сверлю людей огромным единственным глазом, высовываю длинный язык — бе-е! — и скачу на одной ноге. Кто я?'},
   f:{easy:'{どうぐは=вещи (тема)} {百年(ひゃくねん)=сто лет} {たつと=когда пройдёт|たつ: проходить (о времени)}、{たましいを=душу (を)} {もつと=обретают — так} {いわれて います=говорят|〜といわれている: «говорят, что…»}。{からかさおばけも=каса-обакэ тоже} {その=из них} {ひとつです=один}。{ちょうちんや=фонарь и т.п. (や)} {げたの=гэта (の)|げた: деревянные сандалии} {おばけも=призраки тоже} {います=есть}。',
      hard:'{からかさおばけは=каса-обакэ (тема)}{とても=очень}{有名(ゆうめい)なのに=знаменит, хотя|〜のに: «хотя»}、{昔話(むかしばなし)には=в старинных сказках}{ほとんど=почти}{出(で)てこない=не появляется}。{江戸時代(えどじだい)の=эпохи Эдо|1603–1868 годы}{かるたや=карт карута и т.п.|かるた: игра с карточками-картинками}{おもちゃの=игрушек (の)}{絵(え)で=благодаря картинкам}{人気者(にんきもの)に=любимцем}{なった=стал}、{いわば=так сказать}「{キャラクター=персонаж, маскот}」{の=(の)}{妖怪(ようかい)なのだ=ёкай, вот оно что|〜のだ: объяснение}。{一本足(いっぽんあし)で=на одной ноге}{ぴょんと=прыг!}{跳(と)ぶ=прыгающий}{姿(すがた)は=облик (тема)}、{今(いま)も=и сейчас}{お化(ば)け屋敷(やしき)の=комнаты страха (の)|おばけやしき: аттракцион «дом с привидениями»}{定番(ていばん)だ=классика, непременный элемент}。'},
   fr:{easy:'Говорят, через сто лет вещи обретают душу. Каса-обакэ — один из таких ёкаев. Есть ещё призраки-фонари и призраки-сандалии гэта.',
@@ -2759,13 +2864,13 @@ const YK={
  yuki:{ru:'Юки-онна',name:'{雪女(ゆきおんな)=юки-онна, снежная женщина}',sfx:()=>{SFX.wind();SFX.ting()},
   h:'Женщина в белом. Появляется в горах в метель.',
   d:{easy:'{わたしは=я} {ふゆの=зимний (の)} {妖怪(ようかい)です=ёкай}。{しろい=белое} {きものを=кимоно (を)} {きて=надев, и|きる: надевать (одежду)}、{かみは=волосы (тема)} {ながくて=длинные и} {くろいです=чёрные}。{ゆきの=снежной (の)} {よるに=ночью (に)} {やまで=в горах (で)} {人(ひと)に=с людьми (に)} {あいます=встречаюсь}。{わたしの=моё} {いきは=дыхание (тема)} {とても=очень} {つめたいです=холодное}。{わたしは=я} {だれ=кто}？',
-     hard:'{わたしは=я}{吹雪(ふぶき)の=метельной (の)|ふぶき: метель, буран}{夜(よる)にだけ=только ночью|〜だけ: «только»}{姿(すがた)を見(み)せる=показывающаяся|すがたをみせる: показываться}、{真(ま)っ白(しろ)な=белоснежном}{着物(きもの)の=в кимоно (の)}{女(おんな)の=женщина-}{妖怪(ようかい)だ=ёкай}。{肌(はだ)は=кожа (тема)}{雪(ゆき)のように=как снег|〜のように: «как, подобно»}{白(しろ)く=белая, и}、{ふっと=фу — (легко, вдруг)}{息(いき)を=дыханием (を)}{かけると=если дохну|いきをかける: дышать на кого-то; 〜と: «если/когда»}、{人(ひと)は=человек (тема)}{凍(こお)ってしまう=замерзает насмерть|こおる: замерзать; 〜てしまう: необратимо}。{でも=но}、{ときどき=иногда}{人間(にんげん)と=с человеком}{恋(こい)を=любовь (を)}{することも=бывает, что|〜こともある: «бывает, что…»}{あるらしい=говорят, бывает|〜らしい: «говорят, похоже»}。{わたしは=я}{だれ=кто}？'},
+     hard:'{わたしは=я}{吹雪(ふぶき)の=метельной (の)|ふぶき: метель, буран}{夜(よる)にだけ=только ночью|〜だけ: «только»}{姿(すがた)を見(み)せる=показывающаяся|すがたをみせる: показываться}、{真(ま)っ白(しろ)な=белоснежном}{着物(きもの)の=в кимоно (の)}{女(おんな)の=женщина-}{妖怪(ようかい)だ=ёкай}。{肌(はだ)は=кожа (тема)}{雪(ゆき)のように=как снег|〜のように: «как, подобно»}{白(しろ)く=белая, и}、{ふっと=фу — (легко, вдруг)}{息(いき)を=дыханием (を)}{かけると=если дохну|いきをかける: дышать на кого-то; 〜と: «если/когда»}、{人(ひと)は=человек (тема)}{凍(こお)ってしまう=замерзает насмерть|こおる: замерзать; 〜てしまう: необратимо}。{でも=но}、{ときどき=иногда}{人間(にんげん)に=в человека}{恋(こい)をしてしまう=влюбляюсь|こいをする: влюбляться; 〜てしまう: «невольно»}{こともある=бывает|〜こともある: «бывает, что…»}。{わたしは=я}{だれ=кто}？'},
   dr:{easy:'Я зимний ёкай. На мне белое кимоно, волосы длинные и чёрные. Снежной ночью я встречаю людей в горах. Моё дыхание очень холодное. Кто я?',
-      hard:'Я ёкай-женщина в белоснежном кимоно, показываюсь только метельными ночами. Кожа у меня белая, как снег, и если я дохну на человека — он замерзает. Но, говорят, иногда я влюбляюсь в людей. Кто я?'},
+      hard:'Я ёкай-женщина в белоснежном кимоно, показываюсь только метельными ночами. Кожа у меня белая, как снег, и если я дохну на человека — он замерзает. Но иногда я невольно влюбляюсь в человека. Кто я?'},
   f:{easy:'{ゆきおんなの=о юки-онна (の)} {はなしは=истории (тема)} {ゆきが=снега (が)} {おおい=много (где)} {ところに=в местах (に)} {たくさん=много} {あります=есть}。{いちばん=самая} {ゆうめいなのは=известная — (тема)}、{ラフカディオ・ハーンの=Лафкадио Хирна (の)|писатель, собиравший японские легенды} {本(ほん)=книги}『{怪談(かいだん)=«Квайдан» — «Страшные истории»}』{の=(の)} {はなしです=история}。',
-     hard:'{雪女(ゆきおんな)の=о юки-онна}{話(はなし)で=среди историй}{いちばん=самая}{有名(ゆうめい)なのは=известная — (тема)}、{ラフカディオ・ハーンの=Лафкадио Хирна|писатель, собиравший японские легенды}『{怪談(かいだん)=«Квайдан»}』{の=(の)}{話(はなし)だ=история}。{雪女(ゆきおんな)は=юки-онна}{若(わか)い=молодого}{男(おとこ)を=мужчину}{助(たす)けるが=щадит, но|たすける: спасать}、「{今夜(こんや)の=сегодняшней ночи}{ことは=о том (тема)}{だれにも=никому}{言(い)うな=не говори|〜な: строгий запрет}」{と=—}{約束(やくそく)させる=заставляет пообещать|〜させる: побудительный залог}。{何年(なんねん)もたって=через много лет}、{男(おとこ)が=мужчина}{妻(つま)に=жене}{あの夜(よる)の=о той ночи}{話(はなし)を=рассказ}{してしまうと=взял и рассказал — и тогда|〜てしまう: «сделал непоправимое»}――{妻(つま)こそ=именно жена|〜こそ: «именно»}、{あの=та самая}{雪女(ゆきおんな)だった=юки-онна была}。'},
+     hard:'{雪女(ゆきおんな)の=о юки-онна}{話(はなし)で=среди историй}{いちばん=самая}{有名(ゆうめい)なのは=известная — (тема)}、{ラフカディオ・ハーンの=Лафкадио Хирна|писатель, собиравший японские легенды}『{怪談(かいだん)=«Квайдан»}』{の=(の)}{話(はなし)だ=история}。{雪女(ゆきおんな)は=юки-онна}{若(わか)い=молодого}{男(おとこ)を=мужчину}{助(たす)けるが=щадит, но|たすける: спасать}、「{今夜(こんや)の=сегодняшней ночи}{ことは=о том (тема)}{だれにも=никому}{言(い)うな=не говори|〜な: строгий запрет}」{と=—}{約束(やくそく)させる=заставляет пообещать|〜させる: побудительный залог}。{何年(なんねん)もたって=через много лет}、{男(おとこ)が=мужчина}{妻(つま)に=жене}{あの夜(よる)の=о той ночи}{話(はなし)を=рассказ}{してしまうと=взял и рассказал — и тогда|〜てしまう: «сделал непоправимое»}――{その=эта}{妻(つま)が=жена}、{じつは=на самом деле}{あの=та самая}{雪女(ゆきおんな)だったのだ=юки-онна и была|〜のだ: объяснение}。'},
   fr:{easy:'Историй о юки-онна много там, где много снега. Самая известная — из книги Лафкадио Хирна «Квайдан».',
-      hard:'Самая известная история о юки-онна — из «Квайдана» Лафкадио Хирна. Юки-онна щадит молодого мужчину, но заставляет его пообещать: «Никому не рассказывай о сегодняшней ночи». Прошли годы, и мужчина рассказал о той ночи своей жене… а жена и была той самой юки-онна.'}},
+      hard:'Самая известная история о юки-онна — из «Квайдана» Лафкадио Хирна. Юки-онна щадит молодого мужчину, но заставляет его пообещать: «Никому не рассказывай о сегодняшней ночи». Прошли годы, и мужчина рассказал о той ночи своей жене… а жена на самом деле и была той самой юки-онна.'}},
 
  zori:{ru:'Бакэ-дзори',name:'{化(ば)け草履(ぞうり)=бакэ-дзори, сандалия-оборотень|ばける: превращаться; ぞうり: соломенные сандалии}',sfx:()=>SFX.slap(),
   h:'Ожившая вещь. Её носят на ногах.',
@@ -2781,13 +2886,13 @@ const YK={
  amabie:{ru:'Амабиэ',name:'{アマビエ=Амабиэ|морской ёкай-пророк}',sfx:()=>{SFX.splash();SFX.shimmer()},
   h:'Длинные волосы, клюв и чешуя. Очень прославился в 2020 году.',
   d:{easy:'{わたしは=я} {うみに=в море (に)} {すむ=живущий} {妖怪(ようかい)です=ёкай}。{かみが=волосы (が)} {ながくて=длинные и}、{とりのような=как у птицы|〜のような: «похожий на»} {くちが=рот (が)} {あります=есть}。{からだには=на теле (には)} {さかなの=рыбья} {うろこ=чешуя}。{足(あし)は=ног (тема)} {三本(さんぼん)です=три|〜ほん: для длинных предметов}。「{わたしの=мою} {えを=картинку (を)} {かいて=нарисуйте} {ください=пожалуйста}。{びょうきに=болезнью (に)} {なりません=не заболеете|〜になる: становиться}」{と=— (цитата)} {いいました=сказал}。{わたしは=я} {だれ=кто}？',
-     hard:'{わたしは=я}{江戸時代(えどじだい)に=в эпоху Эдо|1603–1868 годы}{海(うみ)から=из моря}{現(あらわ)れた=появившийся|あらわれる: появляться}{妖怪(ようかい)だ=ёкай}。{長(なが)い髪(かみ)に=длинные волосы, а к ним|AにB: «A, и к нему B»}{鳥(とり)のような=птичий}{くちばし=клюв}、{体(からだ)は=тело (тема)}{うろこで=чешуёй (で)}{おおわれていて=покрыто, и|おおわれる: быть покрытым}、{足(あし)は=ног}{三本(さんぼん)ある=три}。「{病気(びょうき)が=болезнь (が)}{はやったら=если распространится|はやる: распространяться, быть в моде}、{わたしの=мой}{姿(すがた)を=облик (を)}{かいて=нарисовав}{人々(ひとびと)に=людям}{見(み)せなさい=покажите|〜なさい: строгое указание}」{と=—}{言(い)い残(のこ)して=сказав на прощание|いいのこす: сказать, уходя}、{海(うみ)へ=в море}{帰(かえ)っていった=ушёл обратно}。{わたしは=я}{だれ=кто}？'},
+     hard:'{わたしは=я}{江戸時代(えどじだい)に=в эпоху Эдо|1603–1868 годы}{海(うみ)から=из моря}{現(あらわ)れた=появившийся|あらわれる: появляться}{妖怪(ようかい)だ=ёкай}。{長(なが)い髪(かみ)に=длинные волосы, а к ним|AにB: «A, и к нему B»}{鳥(とり)のような=птичий}{くちばし=клюв}、{体(からだ)は=тело (тема)}{うろこで=чешуёй (で)}{おおわれていて=покрыто, и|おおわれる: быть покрытым}、{足(あし)は=ног}{三本(さんぼん)ある=три}。「{病気(びょうき)が=болезнь (が)}{はやったら=если распространится|はやる: распространяться, быть в моде}、{わたしの=мой}{姿(すがた)を=облик (を)}{かいて=нарисовав}{人々(ひとびと)に=людям}{見(み)せなさい=покажите|〜なさい: строгое указание}」{と=—}{言(い)い残(のこ)して=сказав на прощание|いいのこす: сказать, уходя}、{海(うみ)へ=в море}{帰(かえ)った=вернулся}。{わたしは=я}{だれ=кто}？'},
   dr:{easy:'Я ёкай, который живёт в море. У меня длинные волосы и рот, как у птицы. На теле рыбья чешуя. Ног — три. Я сказал: «Нарисуйте меня — и не заболеете». Кто я?',
-      hard:'Я ёкай, появившийся из моря в эпоху Эдо. Длинные волосы, птичий клюв, тело покрыто чешуёй, ног — три. Сказав на прощание: «Если распространится болезнь — нарисуйте мой облик и покажите людям», я ушёл обратно в море. Кто я?'},
+      hard:'Я ёкай, появившийся из моря в эпоху Эдо. Длинные волосы, птичий клюв, тело покрыто чешуёй, ног — три. Сказав на прощание: «Если распространится болезнь — нарисуйте мой облик и покажите людям», я вернулся в море. Кто я?'},
   f:{easy:'{アマビエは=Амабиэ (тема)} 1846{年(ねん)の=года (の)} {かみに=на листке (に)|かみ: бумага} {かかれて いました=был нарисован|かかれる: страдательный залог от かく}。2020{年(ねん)=году}、{びょうきが=болезнь (が)} {はやった=распространилась} {とき=когда}、{たくさんの=много} {人(ひと)が=людей (が)} {アマビエの=Амабиэ (の)} {えを=картинки (を)} {かいて=нарисовали и} SNS{に=в соцсети} {のせました=выложили|のせる: размещать}。',
-     hard:'{アマビエが=Амабиэ (が)}{肥後(ひご)の国(くに)の=провинции Хиго (сейчас — Кумамото)}{海(うみ)に=в море}{現(あらわ)れたのは=появилась — (тема)}1846{年(ねん)=году}。{その=этот}{話(はなし)は=рассказ}{絵(え)入(い)りの=с картинкой}{かわら版(ばん)に=в листке новостей|かわらばん: печатный листок новостей эпохи Эдо}{書(か)かれている=записан}。「{わたしの=мой}{姿(すがた)を=облик}{写(うつ)して=перерисовав|うつす: копировать}{人々(ひとびと)に=людям}{見(み)せよ=покажите|〜よ: старинный повелительный}」――{この=эти}{言葉(ことば)の=слова (の)}{おかげで=благодаря|〜のおかげで: «благодаря»}、2020{年(ねん)に=году}{病気(びょうき)が=болезнь}{世界中(せかいじゅう)で=по всему миру}{はやったとき=когда распространилась}、{アマビエは=Амабиэ}{日本中(にほんじゅう)で=по всей Японии}{大人気(だいにんき)に=суперпопулярной}{なった=стала}。{国(くに)の=государственные}{ポスターにまで=даже на плакаты|〜にまで: «даже до»}{登場(とうじょう)したほどだ=появилась — вот насколько|〜ほど: «до такой степени»}。'},
+     hard:'{アマビエが=Амабиэ (が)}{肥後(ひご)の国(くに)の=провинции Хиго (сейчас — Кумамото)}{海(うみ)に=в море}{現(あらわ)れたのは=появилась — (тема)}1846{年(ねん)=году}。{その=этот}{話(はなし)は=рассказ}{絵(え)入(い)りの=с картинкой}{かわら版(ばん)に=в листке новостей|かわらばん: печатный листок новостей эпохи Эдо}{残(のこ)っている=сохранился}。「{わたしの=мой}{姿(すがた)を=облик}{写(うつ)して=перерисовав|うつす: копировать}{人々(ひとびと)に=людям}{見(み)せよ=покажите|〜よ: старинный повелительный}」――{この=эти}{言葉(ことば)の=слова (の)}{おかげで=благодаря|〜のおかげで: «благодаря»}、2020{年(ねん)に=году}{病気(びょうき)が=болезнь}{世界中(せかいじゅう)で=по всему миру}{はやったとき=когда распространилась}、{アマビエは=Амабиэ}{日本中(にほんじゅう)で=по всей Японии}{大人気(だいにんき)に=суперпопулярной}{なった=стала}。{国(くに)の=государственные}{ポスターにまで=даже на плакаты|〜にまで: «даже до»}{登場(とうじょう)したほどだ=появилась — вот насколько|〜ほど: «до такой степени»}。'},
   fr:{easy:'Амабиэ нарисовали на листке 1846 года. В 2020 году, когда распространилась болезнь, очень многие люди рисовали Амабиэ и выкладывали в соцсети.',
-      hard:'Амабиэ появилась в море провинции Хиго (сейчас это префектура Кумамото) в 1846 году. Эта история записана в листке новостей с картинкой. «Перерисуйте мой облик и покажите людям» — благодаря этим словам в 2020 году, когда по миру распространилась болезнь, Амабиэ стала суперпопулярной по всей Японии. Она даже попала на государственные плакаты.'}}
+      hard:'Амабиэ появилась в море провинции Хиго (сейчас это префектура Кумамото) в 1846 году. Эта история сохранилась в листке новостей с картинкой. «Перерисуйте мой облик и покажите людям» — благодаря этим словам в 2020 году, когда по миру распространилась болезнь, Амабиэ стала суперпопулярной по всей Японии. Она даже попала на государственные плакаты.'}}
 };
 const YORD=['oni','kitsune','kasa','yuki','zori','amabie'];   /* riddle order */
 const YRACK=['kitsune','kasa','amabie','oni','yuki','zori'];  /* places on the rack */
@@ -2985,12 +3090,12 @@ const STORY={
   ],
   hard:[
    {sc:'r_room',ru:'На школьной поездке в средней школе мы остановились в старом рёкане в Киото. Наша комната — в самом конце коридора. Мы расстелили футоны на татами, выключили свет, и Мики из нашей группы, подсвечивая лицо снизу фонариком смартфона, сказала: «Слушайте, рассказать вам страшную историю?»',
-    t:'{中学(ちゅうがく)の=средней школы}{修学旅行(しゅうがくりょこう)で=на школьной поездке|поездка всем классом с ночёвкой}、{京都(きょうと)の=в Киото}{古(ふる)い=старом}{旅館(りょかん)に=в рёкане|японская гостиница с татами}{泊(と)まった=остановились}。{わたしたちの=наша}{部屋(へや)は=комната}{廊下(ろうか)の=коридора}{いちばん=самый}{奥(おく)=дальний конец}。\n{畳(たたみ)に=на татами}{布団(ふとん)を=футоны}{並(なら)べて=расстелив рядом}、{電気(でんき)を=свет}{消(け)したあと=после того как погасили|た-форма + あと: «после»}、{同(おな)じ=той же}{班(はん)の=группы|はん: маленькая группа внутри класса}{ミキが=Мики}{スマホの=смартфона}{ライトを=фонарик}{あごの下(した)から=снизу, из-под подбородка}{当(あ)てて=направив}{言(い)った=сказала}。\n「{ねえ=слушайте}、{怖(こわ)い話(はなし)=страшную историю}、{してあげよっか=рассказать вам?|〜てあげる: сделать для кого-то; 〜よっか: «может, …?»}。」',
+    t:'{中学(ちゅうがく)の=средней школы}{修学旅行(しゅうがくりょこう)で=на школьной поездке|поездка всем классом с ночёвкой}、{京都(きょうと)の=в Киото}{古(ふる)い=старом}{旅館(りょかん)に=в рёкане|японская гостиница с татами}{泊(と)まった=остановились}。{わたしたちの=наша}{部屋(へや)は=комната}{廊下(ろうか)の=коридора}{いちばん=самый}{奥(おく)=дальний конец}。\n{畳(たたみ)に=на татами}{布団(ふとん)を=футоны}{並(なら)べて=расстелили рядом и}{電気(でんき)を=свет}{消(け)すと=как только погасили|〜と: «когда… — тут»}、{同(おな)じ=той же}{班(はん)の=группы|はん: маленькая группа внутри класса}{ミキが=Мики}{スマホの=смартфона}{ライトを=фонарик}{あごの下(した)から=снизу, из-под подбородка}{当(あ)てて=направив}{言(い)った=сказала}。\n「{ねえ=слушайте}、{怖(こわ)い話(はなし)=страшную историю}、{してあげよっか=рассказать вам?|〜てあげる: сделать для кого-то; 〜よっか: «может, …?»}。」',
     q:['{どこに=где}{泊(と)まりましたか=остановились?}？{どんな=какой}{部屋(へや)でしたか=была комната?}？','{あなたは=вы}{旅行(りょこう)や=в поездке или}{キャンプで=в лагере}{怖(こわ)い話(はなし)を=страшные истории}{したことが=рассказывали — опыт|〜たことがある: «доводилось»}{ありますか=есть?}？'],
     qr:['Где они остановились? Какая была комната?','Тебе случалось рассказывать страшилки в поездке или в лагере?'],
     help:['{旅館(りょかん)=рёкан}','{廊下(ろうか)の奥(おく)=в конце коридора}','{懐中電灯(かいちゅうでんとう)=фонарик}','{盛(も)り上(あ)がる=веселиться, оживляться}','{〜たことがある=доводилось ~}']},
-   {sc:'r_lore',ru:'«Знаете рокурокуби? Это ёкай, у которого ночью, пока он спит, вытягивается одна только шея — вжу-ух. Шея бродит по комнате, а к утру как положено возвращается на место. А страшно вот что: сам человек ничего не помнит. Может быть, и среди нас…» Все закричали «Перестань!» и натянули футоны на головы. А коробка шоколада, которую учитель отобрал со словами «Конфискую!», лежала наверху на шкафу.',
-    t:'「{ろくろ首(くび)って=рокурокуби — это|って: разговорная тема}{知(し)ってる=знаете?}？{夜(よる)=ночью}、{寝(ね)ている間(あいだ)に=пока спит}、{首(くび)だけが=одна только шея}{にゅーっと=вжу-ух|にゅーっ: звук чего-то вытягивающегося}{伸(の)びる=вытягивается}{妖怪(ようかい)=ёкай}。{首(くび)は=шея}{部屋(へや)の中(なか)を=по комнате}{うろうろして=бродит туда-сюда|うろうろ: слоняться}、{朝(あさ)には=к утру}{ちゃんと=как положено}{元(もと)に=на место}{戻(もど)る=возвращается}。」\n「{怖(こわ)いのはね=страшно вот что|〜のは: «то, что…» (тема)}、{本人(ほんにん)は=сама}{何(なに)も=ничего}{覚(おぼ)えていないってこと=не помнит — вот что|〜ってこと: «то, что…»}。{もしかしたら=может быть}、{この中(なか)にも=и среди нас}……」\n{みんな=все}「{やめてよー=перестань!}！」{と=—}{布団(ふとん)を=футоны}{かぶった=натянули на голову}。\n{先生(せんせい)が=учитель}「{没収(ぼっしゅう)=конфискую!|ぼっしゅう: отобрать запрещённое}！」{と=—}{取(と)り上(あ)げた=отобранного}{チョコレートの=шоколада}{箱(はこ)は=коробка}、{戸棚(とだな)の=шкафа}{上(うえ)に=наверху}{置(お)いてあった=лежала|〜てある: результат чьего-то действия}。',
+   {sc:'r_lore',ru:'«Знаете рокурокуби? Это ёкай, у которого ночью, пока он спит, вытягивается одна только шея — вжу-ух. Голова бродит по комнате, а к утру всё как положено возвращается на место. А страшно вот что: сам человек ничего не помнит. Может быть, и среди нас…» Все закричали «Перестань!» и натянули футоны на головы. А коробка шоколада, которую учитель отобрал со словами «Конфискую!», лежала наверху на шкафу.',
+    t:'「{ろくろ首(くび)って=рокурокуби — это|って: разговорная тема}{知(し)ってる=знаете?}？{夜(よる)=ночью}、{寝(ね)ている間(あいだ)に=пока спит}、{首(くび)だけが=одна только шея}{にゅーっと=вжу-ух|にゅーっ: звук чего-то вытягивающегося}{伸(の)びる=вытягивается}{妖怪(ようかい)=ёкай}。{頭(あたま)は=голова}{部屋(へや)の中(なか)を=по комнате}{うろうろして=бродит туда-сюда|うろうろ: слоняться}、{朝(あさ)には=к утру}{ちゃんと=как положено}{元(もと)に=на место}{戻(もど)る=возвращается}。」\n「{怖(こわ)いのはね=страшно вот что|〜のは: «то, что…» (тема)}、{本人(ほんにん)は=сама}{何(なに)も=ничего}{覚(おぼ)えていないってこと=не помнит — вот что|〜ってこと: «то, что…»}。{もしかしたら=может быть}、{この中(なか)にも=и среди нас}……」\n{みんな=все}「{やめてよー=перестань!}！」{と=—}{布団(ふとん)を=футоны}{かぶった=натянули на голову}。\n{先生(せんせい)が=учитель}「{没収(ぼっしゅう)=конфискую!|ぼっしゅう: отобрать запрещённое}！」{と=—}{取(と)り上(あ)げた=отобранного}{チョコレートの=шоколада}{箱(はこ)は=коробка}、{戸棚(とだな)の=шкафа}{上(うえ)に=наверху}{置(お)いてあった=лежала|〜てある: результат чьего-то действия}。',
     q:['{ミキによると=по словам Мики|〜によると: «по словам ~»}、{ろくろ首(くび)の=рокурокуби}{いちばん=самое}{怖(こわ)いところは=страшное}{何(なん)ですか=что?}？','{チョコレートは=шоколад}{どこに=где}{ありますか=находится?}？{なぜですか=почему?}？'],
     qr:['По словам Мики, что самое страшное в рокурокуби?','Где шоколад? Почему он там?'],
     help:['{覚(おぼ)えていない=не помнит}','{気(き)づかない=не замечает}','{取(と)り上(あ)げる=отбирать}','{戸棚(とだな)の上(うえ)=наверху на шкафу}','{〜からです=потому что ~}']},
@@ -2999,8 +3104,8 @@ const STORY={
     q:['{「わたし」は=«я» (тема)}{何(なに)を=что}{見(み)ましたか=увидела?}？','{あなたなら=на её месте вы}、{この時(とき)=в этот момент}{どうしますか=что сделаете?}？'],
     qr:['Что увидела «я»?','Что бы ты сделал в этот момент?'],
     help:['{首(くび)が伸(の)びる=шея вытягивается}','{声(こえ)を出(だ)す=закричать}','{寝(ね)たふりをする=притвориться спящей}','{写真(しゃしん)を撮(と)る=сфотографировать}','{先生(せんせい)を呼(よ)ぶ=позвать учителя}']},
-   {sc:'r_morning',ru:'Утром Мики, зевая, сказала: «Такой странный сон видела. Лечу по небу и ем шоколад». В коридоре учитель в недоумении склонил голову набок: «Странно, шоколад пропал…» Может, стоит сказать? Но как это сказать? В итоге я решила промолчать.',
-    t:'{朝(あさ)=утром}、{ミキは=Мики}{あくびをしながら=зевая|〜ながら: «одновременно»}{言(い)った=сказала}。\n「{変(へん)な夢(ゆめ)=странный сон}{見(み)ちゃった=увидела (вот так вышло)|〜ちゃう = 〜てしまう}。{空(そら)を飛(と)んで=лечу по небу и}、{チョコを=шоколад}{食(た)べる夢(ゆめ)=ем — такой сон}。」\n{廊下(ろうか)では=в коридоре}、{先生(せんせい)が=учитель}「{おかしいな=странно}、{チョコが=шоколада}{ない=нет}……」{と=—}{首(くび)を=голову}{かしげている=склонил набок|くびを かしげる: недоумевать, склонив голову}。\n{言(い)うべきだろうか=стоит ли сказать?|〜べき: «следует»}。{でも=но}、{なんて=как, что}{言(い)えば=сказать}{いいの=же?|〜ばいい: «как лучше…»}？\n{結局(けっきょく)=в итоге}、{わたしは=я}{黙(だま)っていることにした=решила молчать|〜ことにする: решить сделать}。',
+   {sc:'r_morning',ru:'Утром Мики, зевая, сказала: «Такой странный сон видела. Лечу по небу и ем шоколад». В коридоре учитель в недоумении склонил голову набок: «Странно, шоколад пропал…» Может, сказать учителю? Но как это сказать? В итоге я решила промолчать.',
+    t:'{朝(あさ)=утром}、{ミキは=Мики}{あくびをしながら=зевая|〜ながら: «одновременно»}{言(い)った=сказала}。\n「{変(へん)な夢(ゆめ)=странный сон}{見(み)ちゃった=увидела (вот так вышло)|〜ちゃう = 〜てしまう}。{空(そら)を飛(と)んで=лечу по небу и}、{チョコを=шоколад}{食(た)べる夢(ゆめ)=ем — такой сон}。」\n{廊下(ろうか)では=в коридоре}、{先生(せんせい)が=учитель}「{おかしいな=странно}、{チョコが=шоколада}{ない=нет}……」{と=—}{首(くび)を=голову}{かしげている=склонил набок|くびを かしげる: недоумевать, склонив голову}。\n{先生(せんせい)に=учителю}{言(い)ったほうが=лучше сказать|〜たほうがいい: «лучше сделать»}{いいのかな=может, стоит?|〜のかな: «интересно, …?»}。{でも=но}、{なんて=как, что}{言(い)えば=сказать}{いいの=же?|〜ばいい: «как лучше…»}？\n{結局(けっきょく)=в итоге}、{わたしは=я}{黙(だま)っていることにした=решила молчать|〜ことにする: решить сделать}。',
     q:['{なぜ=почему}{「わたし」は=«я»}{黙(だま)っていることにしたと=решила молчать — что}{思(おも)いますか=думаете?}？','{あなたなら=вы бы}{先生(せんせい)に=учителю}{言(い)いますか=сказали?}？'],
     qr:['Почему, по-твоему, «я» решила промолчать?','А ты сказал бы учителю?'],
     help:['{信(しん)じてもらえない=не поверят}','{夢(ゆめ)だと思(おも)う=подумает, что это сон}','{友(とも)だちを守(まも)る=защитить подругу}','{笑(わら)われる=засмеют}','{〜かもしれない=может быть, ~}']},
@@ -3747,7 +3852,7 @@ function labRender(id,dir){const P=gp(id),Y=labY(),n=LSTEP.length;if(P.i>n)P.i=n
  const nav=`<nav class="g-nav"><button class="g-btn" data-g="prev" data-tip="Назад" ${P.i===0?'disabled':''}><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>まえ</button><div class="g-dots">${dots}</div>
   ${fin?'<span style="width:84px"></span>':`<button class="g-btn go${last?' end':''}" data-g="next" data-tip="${last?'Зарегистрировать ёкая и получить печать':'Дальше'}">${last?'<ruby>登録<rt>とうろく</rt></ruby>':'つぎ'}<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>`}</nav>`;
  const body=$('#mBody');body.innerHTML=`<div class="game"><div class="g-stage${dir?' in-'+dir:''}">${stage}</div>${nav}</div>`;
- if(fin&&!stamps.has(id)){stamps.add(id);renderStamps(id);SFX.stamp();setTimeout(()=>SFX.trick(),260);const s=body.querySelector('.ld-seal');if(s)s.classList.add('pop');body.querySelector('.g-dot.fin').classList.add('got')}
+ if(fin&&!stamps.has(id)){stamps.add(id);renderStamps(id);gsAwarded(id,body);setTimeout(()=>SFX.trick(),1150);body.querySelector('.g-dot.fin').classList.add('got')}
  if(labEdit){const inp=$('#own-'+labEdit);if(inp){inp.focus();inp.setSelectionRange(inp.value.length,inp.value.length)}}
  saveProg()}
 function labRefresh(pop){const P=gp(curMode),Y=labY();const st=$('#mBody .lab-stand'),pn=$('#mBody .lab-pan');if(!st||!pn)return labRender(curMode);
@@ -3770,7 +3875,7 @@ function labDoc(Y){const D=labDesc(Y),Q=IQ[level],q=Q[labQ%Q.length];
    <div class="ld-lbl">${jp('{すがた=облик|姿(すがた): внешний вид}')}</div><p class="ld-p">${D.look}</p>
    ${D.life?`<div class="ld-lbl">${jp('{プロフィール=профиль}')}</div><p class="ld-p">${D.life}</p>`:''}
    <button class="g-tr" data-g="tr" aria-expanded="false" data-tip="Показать перевод"><svg viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><ruby>翻訳<rt>ほんやく</rt></ruby></button><div class="g-ru" hidden><p>${esc(D.lookRu)}</p>${D.lifeRu?`<p>${esc(D.lifeRu)}</p>`:''}</div>
-  </div></div><div class="ld-seal big-seal" aria-hidden="true">${ICON[5]}</div></article>
+  </div></div><div class="ld-seal gs-sw${stamps.has('5')?'':' fresh'}" aria-hidden="true">${gsSeal(5)}${stamps.has('5')?'':GSHK}</div></article>
   <section class="lab-iv"><div class="iv-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6v10a3 3 0 0 1-6 0zM5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg><span>インタビュー</span><small>${labQ%Q.length+1}/${Q.length}</small></div>
    <p class="iv-q">${jp(q[0])}</p>
    <div class="iv-row"><button class="g-tr" data-g="tr" aria-expanded="false" data-tip="Показать перевод"><svg viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><ruby>翻訳<rt>ほんやく</rt></ruby></button><div class="g-ru" hidden><p>${q[1]}</p></div>
@@ -4315,6 +4420,154 @@ function hkAnnounce(){if(curMode||hkOn)return;street.scrollTo({left:street.scrol
  bk.addEventListener('pointermove',e=>{if(t&&xy&&Math.hypot(e.clientX-xy[0],e.clientY-xy[1])>14)stop()});
  ['pointerup','pointercancel','pointerleave'].forEach(n=>bk.addEventListener(n,()=>{stop();if(hkBookFired)setTimeout(()=>{hkBookFired=false},450)}))})();
 
+/* ===== goshuin: stamp pages, hanko ritual, opening book, secret stamp, PNG (v19) ===== */
+const GSINK='#c0301c',GSSEC='#6c3aa6',GSP='#f4ead6';
+const GSN={
+ 1:'{ちょうちん屋(や)=лавка бумажных фонарей}',
+ 2:'{神社(じんじゃ)=синтоистское святилище}',
+ 3:'{自販機(じはんき)の=торгового автомата} {かど=угол}',
+ 4:'{廃校(はいこう)=заброшенная школа}',
+ 5:'{妖怪(ようかい)=ёкай}{研究所(けんきゅうじょ)=исследовательский институт}',
+ 6:'{お化(ば)け横丁(よこちょう)=Переулок призраков|よこちょう: переулок, узкая улочка}'};
+const GSRU={1:'Лавка фонарей',2:'Храм',3:'Угол с автоматом',4:'Заброшенная школа',5:'Лаборатория ёкаев',6:'Тайная печать улицы'};
+let gsPend=null,gsFive=false;
+const gsSD=()=>prog.sd||(prog.sd={});
+const gsHas=id=>String(id)==='6'?!!gsSD()[6]:stamps.has(String(id));
+function gsToday(){const d=new Date();return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`}
+function gsDate(id){const S=gsSD();if(!S[id]){S[id]=gsToday();saveProg()}return S[id]}
+function gsEggN(){return new Set($$('[data-egg]').map(g=>g.dataset.egg).filter(k=>EGGS[k])).size}
+/* --- dates in kanji numerals, read aloud correctly --- */
+const GKN=['','一','二','三','四','五','六','七','八','九'],GRN=['','いち','に','さん','よん','ご','ろく','なな','はち','きゅう'];
+const gKan=n=>n<10?GKN[n]:(n>=20?GKN[(n/10)|0]:'')+'十'+GKN[n%10];
+const gTens=n=>n<10?'':(n>=20?GRN[(n/10)|0]:'')+'じゅう';
+function gYear(n){const u=n%10;return gTens(n)+({4:'よ',7:'しち',9:'きゅう'}[u]||GRN[u])+'ねん'}
+function gMon(m){return ({4:'し',7:'しち',9:'く'}[m]||[,'いち','に','さん','','ご','ろく','','はち','','じゅう','じゅういち','じゅうに'][m])+'がつ'}
+function gDay(d){const S={1:'ついたち',2:'ふつか',3:'みっか',4:'よっか',5:'いつか',6:'むいか',7:'なのか',8:'ようか',9:'ここのか',10:'とおか',14:'じゅうよっか',20:'はつか',24:'にじゅうよっか'};
+ if(S[d])return S[d];const u=d%10;return gTens(d)+({1:'いち',2:'に',3:'さん',5:'ご',6:'ろく',7:'しち',8:'はち',9:'く'}[u]||'')+'にち'}
+const GMRU=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+function gsDateParts(s){const [Y,M,D]=s.split('-').map(Number);return {Y,M,D,ry:Y-2018}}
+function gsDateJp(s){const {Y,M,D,ry}=gsDateParts(s);
+ return jp(`{令和(れいわ)${gKan(ry)}年(${gYear(ry)})=${ry}-й год эпохи Рэйва — ${Y} год|японский календарь считает годы по эпохам императоров}{${gKan(M)}月(${gMon(M)})${gKan(D)}日(${gDay(D)})=${D} ${GMRU[M-1]}}`)}
+/* --- stamp art: viewBox 0 0 200 200, ink only (paper shows through), no text --- */
+function gsPoly(n,r,rot){let p=[];for(let i=0;i<n;i++){const a=rot+i*2*Math.PI/n;p.push((100+r*Math.cos(a)).toFixed(1)+','+(100+r*Math.sin(a)).toFixed(1))}return p.join(' ')}
+function gsPump(r){let p=[];for(let i=0;i<=96;i++){const a=i/96*2*Math.PI,k=r*(.9+.1*Math.abs(Math.cos(3*a)));p.push((100+k*Math.cos(a)).toFixed(1)+','+(104+k*.92*Math.sin(a)).toFixed(1))}return p.join(' ')}
+function gsFrame(id,c){const S=`fill="none" stroke="${c}"`;
+ if(id==1){let d='';for(let i=0;i<28;i++){const a=i/28*2*Math.PI;d+=`<circle cx="${(100+86.5*Math.cos(a)).toFixed(1)}" cy="${(100+86.5*Math.sin(a)).toFixed(1)}" r="1.7" fill="${c}"/>`}
+  return `<circle cx="100" cy="100" r="92" ${S} stroke-width="8"/><circle cx="100" cy="100" r="81" ${S} stroke-width="2.5"/>${d}`}
+ if(id==2)return `<rect x="10" y="10" width="180" height="180" rx="20" ${S} stroke-width="8"/><rect x="22" y="22" width="156" height="156" rx="11" ${S} stroke-width="2.5"/>`;
+ if(id==3)return `<rect x="36" y="7" width="128" height="186" rx="12" ${S} stroke-width="8"/><rect x="47" y="18" width="106" height="164" rx="6" ${S} stroke-width="2.5"/>`;
+ if(id==4)return `<polygon points="${gsPoly(8,93,Math.PI/8)}" ${S} stroke-width="8" stroke-linejoin="round"/><polygon points="${gsPoly(8,81,Math.PI/8)}" ${S} stroke-width="2.5"/>`;
+ if(id==5)return `<polygon points="${gsPoly(6,94,-Math.PI/2)}" ${S} stroke-width="8" stroke-linejoin="round"/><polygon points="${gsPoly(6,82,-Math.PI/2)}" ${S} stroke-width="2.5"/>`;
+ return `<path d="M96,14 Q92,4 102,2 L104,8 Q100,10 102,16Z" fill="${c}"/><polygon points="${gsPump(90)}" ${S} stroke-width="8" stroke-linejoin="round"/><polygon points="${gsPump(78)}" ${S} stroke-width="2.5"/>`}
+function gsMotif(id,c){const P=GSP;
+ if(id==1)return `<rect x="77" y="38" width="46" height="12" rx="3" fill="${c}"/><rect x="77" y="150" width="46" height="12" rx="3" fill="${c}"/><ellipse cx="100" cy="100" rx="42" ry="50" fill="${c}"/>
+  <path d="M64,72 Q100,80 136,72 M60,128 Q100,136 140,128" stroke="${P}" stroke-width="2.4" fill="none"/>
+  <ellipse cx="85" cy="94" rx="7" ry="9" fill="${P}"/><ellipse cx="115" cy="94" rx="7" ry="9" fill="${P}"/><circle cx="87" cy="96" r="3.4" fill="${c}"/><circle cx="113" cy="96" r="3.4" fill="${c}"/>
+  <path d="M82,111 Q100,126 118,111 Q100,118 82,111Z" fill="${P}"/><path d="M96,117 Q95,138 104,144 Q110,132 106,117Z" fill="${P}"/><path d="M100,121 L101,136" stroke="${c}" stroke-width="1.6"/>`;
+ if(id==2)return `<path d="M28,52 Q100,66 172,52 L167,68 Q100,79 33,68Z" fill="${c}"/><rect x="44" y="84" width="112" height="10" fill="${c}"/><rect x="58" y="66" width="12" height="104" fill="${c}"/><rect x="130" y="66" width="12" height="104" fill="${c}"/><rect x="94" y="70" width="12" height="16" fill="${c}"/>
+  <path d="M78,108 L86,124 Q100,119 114,124 L122,108 L120,132 Q112,152 100,160 Q88,152 80,132Z" fill="${c}"/>
+  <path d="M86,133 L97,138 L88,141Z M114,133 L103,138 L112,141Z" fill="${P}"/><path d="M96,150 Q100,154 104,150" stroke="${P}" stroke-width="2" fill="none"/><circle cx="100" cy="147" r="2.4" fill="${P}"/>`;
+ if(id==3)return `<rect x="62" y="34" width="76" height="128" rx="6" fill="${c}"/><rect x="70" y="44" width="60" height="58" rx="2" fill="${P}"/>
+  <rect x="75" y="50" width="11" height="19" rx="2" fill="${c}"/><rect x="94.5" y="50" width="11" height="19" rx="2" fill="${c}"/><rect x="114" y="50" width="11" height="19" rx="2" fill="${c}"/>
+  <rect x="75" y="76" width="11" height="19" rx="2" fill="${c}"/><rect x="114" y="76" width="11" height="19" rx="2" fill="${c}"/>
+  <circle cx="100" cy="85" r="9.5" fill="${P}" stroke="${c}" stroke-width="2.2"/><circle cx="101.5" cy="86" r="5" fill="${c}"/><circle cx="99.5" cy="83.5" r="1.6" fill="${P}"/>
+  ${[76,88,100,112,124].map(x=>`<circle cx="${x}" cy="112" r="2.6" fill="${P}"/>`).join('')}<rect x="119" y="121" width="9" height="12" rx="1.5" fill="${P}"/><rect x="73" y="138" width="54" height="15" rx="2" fill="${P}"/>
+  <path d="M52,40 l-4,10 M54,70 l-4,10 M51,100 l-4,10 M53,130 l-4,10 M150,30 l-4,10 M148,62 l-4,10 M151,94 l-4,10 M149,126 l-4,10 M151,156 l-4,10" stroke="${c}" stroke-width="2.6" stroke-linecap="round"/>`;
+ if(id==4)return `<path d="M73,52 a13,13 0 1 0 14,-11 a10,10 0 1 1 -14,11Z" fill="${c}"/>
+  <rect x="38" y="98" width="124" height="60" fill="${c}"/><rect x="85" y="62" width="30" height="38" fill="${c}"/><path d="M79,64 L100,44 L121,64Z" fill="${c}"/>
+  <circle cx="100" cy="78" r="8.5" fill="${P}"/><path d="M100,72 V78 L104,81" stroke="${c}" stroke-width="2" fill="none" stroke-linecap="round"/>
+  ${[46,62,124,140].map(x=>`<rect x="${x}" y="106" width="11" height="15" fill="${P}"/><rect x="${x}" y="130" width="11" height="15" fill="${P}"/>`).join('')}<rect x="92" y="128" width="16" height="30" fill="${P}"/><path d="M100,128 V158" stroke="${c}" stroke-width="2"/>
+  <rect x="28" y="158" width="144" height="5" fill="${c}"/>
+  <path d="M146,106 C160,88 170,70 158,56 C148,45 130,56 134,42" stroke="${c}" stroke-width="5.5" fill="none" stroke-linecap="round"/><circle cx="135" cy="36" r="9" fill="${c}"/><path d="M131,35 h3 M137,35 h3" stroke="${P}" stroke-width="1.8" stroke-linecap="round"/>`;
+ if(id==5)return `<path d="M87,36 H113 V47 H108 V78 L142,140 Q149,158 131,159 H69 Q51,158 58,140 L92,78 V47 H87Z" fill="${c}"/>
+  <path d="M83,140 V123 Q83,104 100,104 Q117,104 117,123 V140 L111.5,134 L106,140 L100,134 L94,140 L88.5,134Z" fill="${P}"/><circle cx="100" cy="119" r="6.4" fill="${c}"/><circle cx="98" cy="117" r="2" fill="${P}"/>
+  <circle cx="95" cy="91" r="3.2" fill="${P}"/><circle cx="104" cy="83" r="2.2" fill="${P}"/><circle cx="122" cy="28" r="5" fill="none" stroke="${c}" stroke-width="2.4"/><circle cx="130" cy="44" r="3" fill="${c}"/><circle cx="76" cy="32" r="3.4" fill="none" stroke="${c}" stroke-width="2"/>`;
+ return `<path d="M76,134 C50,152 32,124 48,104 C54,96 62,98 60,106" stroke="${c}" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M124,134 C150,152 168,124 152,104 C146,96 138,98 140,106" stroke="${c}" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M66,100 L70,56 L93,80 Q100,77 107,80 L130,56 L134,100 Q138,138 100,146 Q62,138 66,100Z" fill="${c}"/>
+  <path d="M77,102 Q87,90 96,102 Q87,110 77,102Z M104,102 Q113,90 123,102 Q113,110 104,102Z" fill="${P}"/><path d="M87,94 V110 M113,94 V110" stroke="${c}" stroke-width="3" stroke-linecap="round"/>
+  <path d="M95,115 L105,115 L100,121Z" fill="${P}"/><path d="M100,121 Q96,128 90,126 M100,121 Q104,128 110,126" stroke="${P}" stroke-width="2" fill="none"/>
+  <path d="M70,118 L46,114 M70,124 L47,128 M130,118 L154,114 M130,124 L153,128" stroke="${c}" stroke-width="2" stroke-linecap="round"/>`}
+const GSQ=c=>`<path d="M78,82 Q78,56 100,56 Q124,56 124,78 Q124,94 108,102 Q101,106 101,118 V124" stroke="${c}" stroke-width="12" fill="none" stroke-linecap="round"/><circle cx="101" cy="146" r="8" fill="${c}"/>`;
+function gsSeal(id,q){const c=id==6?GSSEC:GSINK,f='gsInk'+id;
+ return `<svg class="gs-art" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><filter id="${f}" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="${id*7}" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="${id*13}" result="b"/><feColorMatrix in="b" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2 0 0 0 2.05" result="m"/><feComposite in="d" in2="m" operator="in"/></filter></defs><g filter="url(#${f})">${gsFrame(id,c)}${q?GSQ(c):gsMotif(id,c)}</g></svg>`}
+function gsMini(id){const c=id==6?GSSEC:GSINK;return `<svg viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="36" height="36" rx="3" fill="none" stroke="${c}" stroke-width="3"/><path d="M11,31 V19 Q11,9 20,9 Q29,9 29,19 V31 L25.5,27.5 L22,31 L18,27.5 L14.5,31Z" fill="${c}"/><circle cx="17" cy="19" r="2" fill="${GSP}"/><circle cx="23" cy="19" r="2" fill="${GSP}"/></svg>`}
+const GSHK=`<div class="gs-hk" aria-hidden="true"><svg viewBox="0 0 80 124"><defs><linearGradient id="gsWood" x1="0" x2="1"><stop offset="0" stop-color="#5a3018"/><stop offset=".45" stop-color="#a4683c"/><stop offset="1" stop-color="#4a2814"/></linearGradient></defs>
+ <rect x="27" y="3" width="26" height="20" rx="10" fill="url(#gsWood)" stroke="#2a160b" stroke-width="1.5"/><path d="M31,21 Q25,52 17,74 H63 Q55,52 49,21Z" fill="url(#gsWood)" stroke="#2a160b" stroke-width="1.5"/>
+ <path d="M36,28 Q33,50 29,70" stroke="#d9a06a" stroke-width="2" opacity=".5" fill="none"/><rect x="9" y="72" width="62" height="30" rx="4" fill="url(#gsWood)" stroke="#2a160b" stroke-width="1.5"/>
+ <rect x="9" y="99" width="62" height="9" rx="2" fill="#a82a18"/><rect x="9" y="99" width="62" height="3" fill="#2a160b" opacity=".35"/></svg></div>`;
+/* one page of the book. o.fresh → stamp is pressed now (hanko + ink + brush), o.d = delay in s */
+function gsPage(id,o={}){id=+id;const own=gsHas(id)||o.fresh;
+ if(!own){const sec=id===6,n=sec?(prog.eggs||[]).length:0,N=sec?gsEggN():0;
+  return `<div class="gs-pg empty${sec?' sec':''}" data-id="${id}" data-tip="${sec?`Тайная печать: найди на улице все пасхалки — нажимай на странные вещи (${n} из ${N})`:'Ещё не получена: '+GSRU[id]}">
+   <div class="gs-sw">${gsSeal(id,sec)}</div>
+   ${sec?`<div class="gs-sh"><span>${jp('{まちの=на улице (の)} {ひみつを=секреты (を)} {ぜんぶ=все} {見(み)つけよう=давай найдём|みつける: находить}')}</span><b>${n} / ${N}</b><p class="hint">Найди на улице все пасхалки — нажимай на странные вещи.</p></div>`:`<div class="gs-name" style="--nc:${gsNC(id)}"><div class="gs-nv">${jp(GSN[id])}</div></div>`}</div>`}
+ const ds=gsDate(id);
+ return `<div class="gs-pg${o.fresh?' fresh':''}${id===6?' sec':''}" data-id="${id}" style="--d:${o.d||0}s">
+  <div class="gs-hp">${jp('{奉拝(ほうはい)=«с почтением посетил» — так начинается надпись в книжке печатей}')}</div><div class="gs-mini">${gsMini(id)}</div>
+  <div class="gs-sw">${gsSeal(id)}${o.fresh?GSHK:''}</div>
+  <div class="gs-name" style="--nc:${gsNC(id)}"><div class="gs-nv">${jp(GSN[id])}</div></div>
+  <div class="gs-date">${gsDateJp(ds)}</div></div>`}
+function gsKnock(d){setTimeout(()=>{SFX.stamp();tone({f:640,f2:420,t:.05,v:.12,type:'triangle',delay:.01})},(reduce?0:d+.62)*1000)}
+/* called right after a room's stamp is added: sound at the press, remember for the street, fifth-stamp glow */
+function gsAwarded(id,root){gsDate(id);gsPend=String(id);const five=stamps.size===5;gsFive=gsFive||five;gsKnock(.25);
+ if(five)setTimeout(()=>{const p=root&&root.querySelector('.gs-pg,.ld-seal');if(p)p.classList.add('five');SFX.shimmer()},reduce?200:2100)}
+function gsStreet(){const p=gsPend;gsPend=null;if(!p)return;const s=$(`.seal[data-loc="${p}"]`);if(s){s.classList.remove('pop');void s.offsetWidth;s.classList.add('pop')}
+ if(gsFive){gsFive=false;const bk=$('.book');$$('.seal').forEach((s,i)=>{s.style.setProperty('--wd',(.35+i*.14)+'s');s.classList.remove('wave');void s.offsetWidth;s.classList.add('wave')});
+  bk.classList.add('five');setTimeout(()=>{SFX.shimmer()},350);setTimeout(()=>{bk.classList.remove('five');$$('.seal').forEach(s=>s.classList.remove('wave'))},2800)}}
+/* --- the book --- */
+const GSB=$('#gs');
+function gsCover(back){return `<div class="gs-cv${back?' back':''}">${back?'':`<div class="gs-slip"><ruby>御朱印帳<rt>ごしゅいんちょう</rt></ruby></div>`}</div>`}
+function gsOpen(focus,fresh){hidePop();hideTip();if(prog.sn){fresh=6;focus=6;delete prog.sn;saveProg()}
+ const ids=[1,2,3,4,5,6],got=[1,2,3,4,5].filter(gsHas).length;
+ GSB.querySelector('.gs-cnt').innerHTML=`${got} / 5`;
+ GSB.querySelector('.gs-sub').innerHTML=fresh==6?jp('{ひみつの=тайная} {ごしゅいん=печать}！'):'';
+ GSB.querySelector('.gs-strip').innerHTML=gsCover()+ids.map((id,i)=>`<div class="gs-slot" style="--i:${i+1}">${gsPage(id,fresh==id?{fresh:1,d:1}:{})}</div>`).join('')+gsCover(1);
+ GSB.hidden=false;GSB.classList.remove('open');void GSB.offsetWidth;GSB.classList.add('open');SFX.whoosh();
+ if(!curMode&&!hkOn)setCover(false),setTimeout(()=>{if(!GSB.hidden&&!curMode&&!hkOn)document.body.classList.add('cover')},500);
+ const t=GSB.querySelector(`.gs-pg[data-id="${focus||1}"]`);
+ requestAnimationFrame(()=>{if(t)t.parentNode.scrollIntoView({inline:'center',block:'nearest'})});
+ if(fresh==6){gsKnock(1);setTimeout(()=>SFX.shimmer(),2300)}}
+function gsClose(){GSB.hidden=true;GSB.querySelector('.gs-strip').innerHTML='';if(!curMode&&!hkOn)document.body.classList.remove('cover');SFX.tick()}
+GSB.addEventListener('click',e=>{const b=e.target.closest('[data-gs]');if(!b){if(e.target===GSB)gsClose();return}
+ if(b.dataset.gs==='x')gsClose();else if(b.dataset.gs==='png')gsSave(b)});
+$('#gsBtn').addEventListener('click',e=>{e.stopPropagation();gsOpen()});
+$('.book-label').addEventListener('click',e=>{e.stopPropagation();gsOpen()});
+/* --- secret stamp: every street egg found --- */
+function gsEgg(k){if(!EGGS[k])return;const e=prog.eggs||(prog.eggs=[]);if(e.includes(k))return;e.push(k);saveProg();
+ if(e.length>=gsEggN()&&!gsSD()[6]){gsDate(6);setTimeout(()=>{if(curMode||hkOn||!GSB.hidden){prog.sn=1;saveProg();return}gsOpen(6,6)},(EGGS[k].t||2600)+200)}}
+/* --- PNG of the whole book (3 × 2 pages, read right to left) --- */
+function gsSvgImg(svg){const i=new Image();i.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);return i.decode().then(()=>i)}
+function gsVert(ctx,src,x,y,size,font,col,rcol){const sg=segs(src);let yy=y;ctx.textAlign='center';ctx.textBaseline='middle';
+ sg.forEach(s=>{const ch=[...s.t].filter(c=>c!==' '),y0=yy;ch.forEach(c=>{ctx.font=`${size}px ${font}`;ctx.fillStyle=col;const small=/[ゃゅょっぁぃぅぇぉャュョッ]/.test(c);
+   ctx.fillText(c,x+(small?size*.12:0),yy+size*.5-(small?size*.12:0));yy+=size*1.04});if(/\s/.test(s.t))yy+=size*.3;
+  if(s.r){const rs=size*.34,rr=[...s.r],tot=rr.length*rs,mid=(y0+yy)/2;let ry=mid-tot/2;ctx.font=`700 ${rs}px "Zen Maru Gothic",sans-serif`;ctx.fillStyle=rcol;rr.forEach(c=>{ctx.fillText(c,x+size*.72,ry+rs*.5);ry+=rs})}});return yy}
+const gsNC=id=>[...gsPlain(GSN[id]).replace(/\([^)]*\)|\s/g,'')].length;
+const gsPlain=s=>s.replace(/\{([^=}]+)=[^}]*\}/g,'$1');
+async function gsPNG(){const Wd=1500,Ht=1500,cv=document.createElement('canvas');cv.width=Wd;cv.height=Ht;const ctx=cv.getContext('2d');
+ const BR='"Yuji Syuku","Yusei Magic","Hiragino Mincho ProN","Yu Mincho","Noto Serif CJK JP","Noto Serif JP",serif';
+ try{await Promise.all([`60px "Yuji Syuku"`,'64px "Yusei Magic"','700 24px "Zen Maru Gothic"'].map(f=>document.fonts.load(f,'御朱印帳奉拝ちょうちん屋神社自販機のかど廃校妖怪研究所お化け横丁令和年月日一二三四五六七八九十')))}catch(e){}
+ const g=ctx.createLinearGradient(0,0,0,Ht);g.addColorStop(0,'#1b1838');g.addColorStop(1,'#120c22');ctx.fillStyle=g;ctx.fillRect(0,0,Wd,Ht);
+ ctx.strokeStyle='rgba(201,162,90,.13)';ctx.lineWidth=2;for(let y=0;y<Ht;y+=46)for(let x=(y/46%2)*23;x<Wd;x+=46){ctx.beginPath();ctx.moveTo(x,y-14);ctx.lineTo(x+12,y);ctx.lineTo(x,y+14);ctx.lineTo(x-12,y);ctx.closePath();ctx.stroke()}
+ ctx.strokeStyle='#c9a25a';ctx.lineWidth=5;ctx.strokeRect(22,22,Wd-44,Ht-44);ctx.strokeStyle='rgba(208,67,43,.8)';ctx.lineWidth=2;ctx.strokeRect(36,36,Wd-72,Ht-72);
+ ctx.textBaseline='alphabetic';ctx.shadowColor='rgba(255,150,60,.55)';ctx.shadowBlur=16;drawRuby(ctx,segs('御朱印帳(ごしゅいんちょう)'),Wd/2,150,66,BR,'#ffd98c');ctx.shadowBlur=0;
+ const pw=400,ph=588,gap=34,x0=(Wd-3*pw-2*gap)/2,y0=200;
+ for(let i=0;i<6;i++){const id=i+1,col=i%3,row=(i/3)|0,x=x0+(2-col)*(pw+gap),y=y0+row*(ph+gap),own=gsHas(id);
+  ctx.fillStyle=GSP;ctx.shadowColor='rgba(0,0,0,.5)';ctx.shadowBlur=24;ctx.fillRect(x,y,pw,ph);ctx.shadowBlur=0;
+  const fg=ctx.createLinearGradient(x,0,x+pw,0);fg.addColorStop(0,'rgba(90,60,30,.12)');fg.addColorStop(.1,'rgba(90,60,30,0)');fg.addColorStop(.9,'rgba(90,60,30,0)');fg.addColorStop(1,'rgba(90,60,30,.12)');ctx.fillStyle=fg;ctx.fillRect(x,y,pw,ph);
+  const sx=x+pw/2-150,sy=y+ph/2-150+14;
+  if(own){const im=await gsSvgImg(gsSeal(id));ctx.save();ctx.globalAlpha=.93;ctx.drawImage(im,sx,sy,300,300);ctx.restore();
+   const mi=await gsSvgImg(gsMini(id).replace('<svg ','<svg xmlns="http://www.w3.org/2000/svg" '));ctx.drawImage(mi,x+pw-110,y+26,44,44);
+   gsVert(ctx,'奉拝(ほうはい)',x+pw-40,y+30,28,BR,'#1b1410','#7a5a3a');
+   const nm=segs(gsPlain(GSN[id])).reduce((a,s)=>a+[...s.t].length,0),ns=Math.min(74,(ph-150)/(nm*1.04));gsVert(ctx,gsPlain(GSN[id]),x+pw/2,y+(ph-nm*ns*1.04)/2,ns,BR,'#1b1410','#5a3a20');
+   const {M,D,ry}=gsDateParts(gsSD()[id]);gsVert(ctx,`令和(れいわ)${gKan(ry)}年(${gYear(ry)})${gKan(M)}月(${gMon(M)})${gKan(D)}日(${gDay(D)})`,x+48,y+ph-40-[...`令和${gKan(ry)}年${gKan(M)}月${gKan(D)}日`].length*26*1.04,26,BR,'#1b1410','#7a5a3a')}
+  else{const im=await gsSvgImg(gsSeal(id,id===6));ctx.save();ctx.globalAlpha=id===6?.35:.1;ctx.drawImage(im,sx,sy,300,300);ctx.restore();
+   if(id<6){ctx.globalAlpha=.25;const nm=segs(gsPlain(GSN[id])).reduce((a,s)=>a+[...s.t].length,0),ns=Math.min(60,(ph-150)/(nm*1.04));gsVert(ctx,gsPlain(GSN[id]),x+pw/2,y+(ph-nm*ns*1.04)/2,ns,BR,'#1b1410','#5a3a20');ctx.globalAlpha=1}}}
+ ctx.textBaseline='alphabetic';ctx.font='700 28px "Zen Maru Gothic",sans-serif';ctx.fillStyle='#ffb04d';ctx.textAlign='center';ctx.fillText('ハッピーハロウィン！  おばけ横丁 2026',Wd/2,Ht-58);
+ return await new Promise(r=>cv.toBlob(r,'image/png'))}
+async function gsSave(btn){if(btn.disabled)return;btn.disabled=true;SFX.tick();let blob;try{blob=await gsPNG()}catch(e){btn.disabled=false;return}
+ const d=await dlUse();if(d){try{await d.save({filename:'goshuincho.png',data:blob});btn.disabled=false;SFX.trick();return}catch(e){if(e&&e.code==='declined'){btn.disabled=false;return}}}
+ btn.disabled=false;labShow(blob)}
+
 /* ===== scrolling ===== */
 const street=$('#street'),scene=$('#scene');let sceneW=0;
 function layout(){const h=street.clientHeight,w=street.clientWidth;sceneW=Math.max(h*W/1000,w);scene.style.width=sceneW+'px';scene.style.setProperty('--u',(sceneW/W).toFixed(4));onScroll()}
@@ -4335,7 +4588,7 @@ let drag=null,dragMoved=false;
 street.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'||e.button!==0)return;drag={x:e.clientX,sl:street.scrollLeft};dragMoved=false});
 addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x;if(Math.abs(dx)>6){dragMoved=true;street.classList.add('dragging')}if(dragMoved)street.scrollLeft=drag.sl-dx});
 addEventListener('pointerup',()=>{drag=null;street.classList.remove('dragging')});
-addEventListener('keydown',e=>{if(e.target.tagName==='INPUT'){if(e.key==='Escape'&&labEdit){labEdit='';labRefresh()}return}if(e.key==='Escape'){if(!pop.hidden)hidePop();else if(hkOn){if(hkBub)hkUnsay();else hkClose()}else if(curMode)closeMode();return}
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT'){if(e.key==='Escape'&&labEdit){labEdit='';labRefresh()}return}if(e.key==='Escape'){if(!pop.hidden)hidePop();else if(!GSB.hidden)gsClose();else if(hkOn){if(hkBub)hkUnsay();else hkClose()}else if(curMode)closeMode();return}
   if(curMode||hkOn||!$('#gate').classList.contains('out'))return;if(e.key==='ArrowRight')scrollByStep(1);if(e.key==='ArrowLeft')scrollByStep(-1)});
 
 /* ===== central click routing ===== */
@@ -4445,6 +4698,7 @@ function bkPush(){try{if(!(history.state&&history.state.obake))history.pushState
 function bkBack(){
   if(!pop.hidden){hidePop();return true}
   if(!SV.hidden){svClose();return true}
+  if(!GSB.hidden){gsClose();return true}
   const ib=$('#inst');if(ib&&!ib.hidden){ib.hidden=true;return true}
   if(hkOn){if(hkBub)hkUnsay();else hkClose();return true}
   if(curMode){if(GAMES[curMode]==='story'&&st4().s){const lb=$('#mBody [data-g="lib"]');if(lb){lb.click();return true}}closeMode();return true}
