@@ -1093,6 +1093,93 @@ body.hk-on #rotate{display:none!important}
 @media (prefers-reduced-motion:reduce){.hk-c,.hk-em{animation:none}.hk-em{display:none}}
 @media (max-height:480px){.hk-plq{top:56px}.hk-end{top:52px}#hk .hk-hint{display:none!important}}
 @media (orientation:portrait){.hk-pt{font-size:clamp(24px,8vw,48px)}.hk-ps{font-size:clamp(13px,3.4vw,22px)}.hk-plq{padding:1.2vh .9vh 1vh}.hk-end{top:36vh}.hk-ttl{font-size:clamp(28px,8.4vw,60px)}.hk-seal{width:max(24px,7vw);height:max(24px,7vw)}}
+
+/* ===== mobile perf (v14): street frozen & hidden under rooms/finale; no backdrop blur / reflections on touch screens ===== */
+body.cover>#street,body.cover>.vignette,body.cover>.hud,body.cover>.arrow,body.cover>.book{visibility:hidden}
+body.cover>#street *{animation-play-state:paused!important}
+@media (pointer:coarse){
+  *,*::before,*::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+  .hk-p{-webkit-box-reflect:none!important}
+}
+/*@@LAND@@*//* ===== short landscape phones (v14): one slim header row, content fits the screen ===== */
+@media (orientation:landscape) and (max-height:500px){
+  #mode{--ah:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px) - 110px)}
+  #mode .m-top{position:sticky;top:0;height:0;padding:0;z-index:6;pointer-events:none;overflow:visible}
+  #mode .m-top>*{position:absolute;top:calc(env(safe-area-inset-top,0px) + 6px);pointer-events:auto}
+  #mode .m-top .back{left:max(10px,env(safe-area-inset-left,0px));padding:5px 13px 5px 9px;font-size:14px;gap:6px}
+  #mode .m-top .m-lv{right:max(10px,env(safe-area-inset-right,0px));font-size:12px;padding:2px 10px}
+  #mode .m-main,#mode.lab5 .m-main{max-width:none;gap:0;padding:calc(env(safe-area-inset-top,0px) + 4px) max(12px,env(safe-area-inset-right,0px)) 8px max(12px,env(safe-area-inset-left,0px))}
+  #mode .m-icon,#mode .m-kicker,#mode .m-desc,#mode #mHint{display:none}
+  #mode .m-title,#mode.playing .m-title{font-size:21px;line-height:1.55;max-width:calc(100% - 260px);margin:0 auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #mode .game{margin-top:6px;gap:8px}
+  #mode .g-stage{gap:8px}
+  #mode .g-nav .g-btn{padding-block:3px}
+  #mode .g-help .g-htog{padding-block:4px}
+  #mode .g-card{padding:12px 18px;border-radius:14px;gap:18px}
+  #mode .g-no{line-height:1.7}
+  #mode .g-q{font-size:clamp(20px,2.8vw,26px);line-height:1.95}
+  #mode .g-tr{padding-block:2px}
+  /* 1: warm-up — lantern beside the question */
+  #mode .g-card.warm{flex-direction:row;text-align:left}
+  #mode .g-card.warm .g-no{justify-content:flex-start}
+  #mode .lan-body{width:70px;height:78px}
+  #mode .lan::before{height:8px}
+  #mode .g-more{padding-block:3px}
+  /* 3: situations — scene left, text right */
+  #mode .g-card.sit{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);align-items:center}
+  #mode .g-scene{max-height:var(--ah);aspect-ratio:auto}
+  #mode .g-scene svg{max-height:calc(var(--ah) - 66px);width:100%}
+  #mode .g-sit{font-size:16px;line-height:2}
+  #mode .g-qs li{padding-block:0}
+  /* 2: guess — riddle left, rack right, rack scaled to the height */
+  #mode .gs{grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto 1fr;grid-template-areas:'rd rk' 'of rk';gap:6px 16px}
+  #mode .riddle .g-q{font-size:16px;line-height:2.05}
+  #mode .riddle{padding:12px 16px}
+  #mode .rack{padding:20px 10px 0;width:calc((var(--ah) - 40px) * .5 * 1.55 + 40px);max-width:56vw}
+  #mode .rk-row{padding:14px 4px 6px}
+  #mode .ofuda{margin-top:16px;padding:12px 14px 10px}
+  /* 4: scroll library + story */
+  #mode.reading .st-head{min-height:36px;margin:-2px 0 0;padding:0 70px 0 calc(max(10px,env(safe-area-inset-left,0px)) + 92px - max(12px,env(safe-area-inset-left,0px)))}
+  #mode .st-head .g-btn{padding-block:3px}
+  #mode .st-title{font-size:19px;line-height:1.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #mode .emaki{margin:0}
+  #mode .emaki .em-paper{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:14px;padding:8px 12px}
+  #mode .emaki .em-pic{position:relative;top:0;width:min(calc((var(--ah) - 24px) * 2.2857),54vw);align-self:center}
+  #mode .em-t p{font-size:16px;line-height:2.05}
+  #mode .st-q{padding:10px 14px}
+  #mode .lib-intro{margin:0;font-size:15px;line-height:2}
+  #mode .lib-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:4px}
+  #mode .lib-card{padding:10px 12px 12px;gap:2px}
+  #mode .lib-cv{width:min(100%,calc((var(--ah) - 110px) * 1.92))}
+  #mode .lib-t{font-size:20px;line-height:1.7;margin:0}
+  #mode .lib-card .g-btn{margin-top:2px;padding-block:3px}
+  /* 5: yokai lab — stand left, panel right (panel scrolls inside if needed) */
+  #mode .lab{grid-template-columns:clamp(150px,25vw,240px) minmax(0,1fr);gap:14px}
+  #mode .lab-stand{position:sticky;top:44px;flex-direction:column;margin:0;padding:0;background:none;gap:4px}
+  #mode .ls-fig{width:min(100%,calc(var(--ah) * .8))}
+  #mode .ls-tag{max-width:100%}
+  #mode .ls-tag b{font-size:19px;line-height:1.8}
+  #mode .lab-pan{padding:10px 14px;max-height:calc(var(--ah) + 10px);overflow-y:auto;overscroll-behavior:contain}
+  #mode .lp-q{font-size:19px;line-height:1.9}
+  #mode .lo-grid,#mode .lo-grid.g4{grid-template-columns:repeat(auto-fit,minmax(70px,1fr));gap:6px}
+  #mode .lab-th{width:auto;height:min(15vh,64px);max-width:100%;margin:0 auto}
+  #mode .lo{padding:4px 2px 2px}
+  #mode .lo-l{font-size:13px;line-height:1.8}
+  #mode .lo-sub{font-size:14px;line-height:1.7;margin-top:0}
+  #mode .lc{min-width:54px;padding:5px 6px 1px}
+  #mode .lc i{width:24px;height:24px}
+  #mode .lf-q{font-size:15px;line-height:1.9}
+  #mode .lfc{font-size:13px;line-height:2}
+  #mode .lfs{gap:4px}
+  #mode .lf-out{font-size:16px;line-height:2;padding:6px 12px}
+  #mode .ln-plate{font-size:34px}
+  #mode .ld-body{grid-template-columns:minmax(0,200px) minmax(0,1fr)}
+  #mode .ld-pic{width:100%}
+}
+@media (orientation:landscape) and (max-height:500px) and (max-width:760px){
+  #mode .m-title,#mode.playing .m-title{font-size:18px;max-width:calc(100% - 230px)}
+}
+/*@@LANDEND@@*/
 </style>
 
 <div id="street">
@@ -2080,8 +2167,10 @@ function fillMode(id){const L=LOCS[id];mode.style.setProperty('--acc',L.acc);
   const g=!!GAMES[id];mode.classList.toggle('playing',g);mode.classList.toggle('guess',GAMES[id]==='guess');mode.classList.toggle('story',GAMES[id]==='story');mode.classList.toggle('lab5',GAMES[id]==='lab');mode.classList.toggle('reading',GAMES[id]==='story'&&!!st4().s);const bg=$('#mBg'),rk=g?roomKey(id):'';if(bg.dataset.room!==rk){bg.dataset.room=rk;bg.innerHTML=g&&BG[id]?BG[id]():''}$('#mWip').hidden=g;$('#mBody').hidden=!g;if(g)renderGame(id)}
 function openMode(id,x,y){hidePop();deactivate(true);curMode=id;fillMode(id);
   mode.style.setProperty('--cx',x+'px');mode.style.setProperty('--cy',y+'px');
-  mode.hidden=false;mode.scrollTop=0;mode.classList.remove('closing');void mode.offsetWidth;mode.classList.add('open');SFX.creak()}
-function closeMode(){if(!curMode)return;mode.classList.remove('open');mode.classList.add('closing');curMode=null;SFX.whoosh();setTimeout(()=>{mode.hidden=true;mode.classList.remove('closing')},520);if(hkGateNew){hkGateNew=false;setTimeout(hkAnnounce,800)}}
+  mode.hidden=false;mode.scrollTop=0;mode.classList.remove('closing');void mode.offsetWidth;mode.classList.add('open');setCover(true,800);SFX.creak()}
+/* while a room or the finale covers the screen, the street is hidden and frozen: frees GPU memory on phones (no flicker) */
+let coverT=null;function setCover(on,ms){clearTimeout(coverT);if(on)coverT=setTimeout(()=>{if(curMode||hkOn)document.body.classList.add('cover')},ms||0);else document.body.classList.remove('cover')}
+function closeMode(){if(!curMode)return;setCover(false);mode.classList.remove('open');mode.classList.add('closing');curMode=null;SFX.whoosh();setTimeout(()=>{mode.hidden=true;mode.classList.remove('closing')},520);if(hkGateNew){hkGateNew=false;setTimeout(hkAnnounce,800)}}
 $('#mBack').addEventListener('click',closeMode);
 $('#mStamp').addEventListener('click',()=>{if(!curMode||stamps.has(curMode))return;stamps.add(curMode);SFX.stamp();renderStamps(curMode);fillMode(curMode);const s=$('#mSeal');s.classList.remove('pop');void s.offsetWidth;s.classList.add('pop')});
 
@@ -4171,8 +4260,8 @@ function hkOpen(x,y){if(hkOn)return;if(!hkBuilt)hkBuild();hidePop();hideTip();de
  if(curMode){mode.hidden=true;mode.classList.remove('open','closing');curMode=null}
  hkOn=true;document.body.classList.add('hk-on');ambient(false);hkCast();
  const R=$('#hk');R.style.setProperty('--cx',x+'px');R.style.setProperty('--cy',y+'px');R.hidden=false;R.classList.remove('closing');void R.offsetWidth;R.classList.add('open');
- hkSyncSnd();hkLayout();hkStart();hkLast=0;cancelAnimationFrame(hkRaf);hkRaf=requestAnimationFrame(hkTick);SFX.whoosh()}
-function hkClose(){if(!hkOn)return;hkUnsay();hkClear();hkOn=false;cancelAnimationFrame(hkRaf);const R=$('#hk');R.classList.remove('open');R.classList.add('closing');SFX.whoosh();
+ setCover(true,1150);hkSyncSnd();hkLayout();hkStart();hkLast=0;cancelAnimationFrame(hkRaf);hkRaf=requestAnimationFrame(hkTick);SFX.whoosh()}
+function hkClose(){if(!hkOn)return;hkUnsay();hkClear();hkOn=false;setCover(false);cancelAnimationFrame(hkRaf);const R=$('#hk');R.classList.remove('open');R.classList.add('closing');SFX.whoosh();
  setTimeout(()=>{if(hkOn)return;R.hidden=true;R.classList.remove('closing');document.body.classList.remove('hk-on');hkP.forEach(p=>p.el.remove());hkP=[];if(soundOn&&started)ambient(true)},620)}
 /* after the fifth stamp: back on the street, roll to the end and show the torii */
 function hkLocked(g){const n=Math.max(1,5-stamps.size);hideTip();g.classList.remove('shake');void g.getBoundingClientRect();g.classList.add('shake');SFX.low();setTimeout(()=>SFX.whisper(),250);
@@ -4237,7 +4326,7 @@ $('#rotOk').addEventListener('click',()=>$('#rotate').classList.add('dismissed')
 
 /* ===== gate ===== */
 let started=false;
-$$('.lvl').forEach(b=>b.addEventListener('click',()=>{ac();setLevel(b.dataset.lv);started=true;SFX.creak();
+$$('.lvl').forEach(b=>b.addEventListener('click',()=>{ac();setLevel(b.dataset.lv);started=true;bkPush();SFX.creak();
   const g=$('#gate');g.classList.add('out');setTimeout(()=>{g.hidden=true},950);
   setTimeout(()=>$('#scn').classList.add('lit'),250);setTimeout(()=>$('#scn').classList.add('settled'),4200);
   if(!fwOn){fwOn=true;setTimeout(fwLoop,2600)}if(soundOn)ambient(true);
@@ -4265,6 +4354,22 @@ $$('.lvl').forEach(b=>b.addEventListener('click',()=>{ac();setLevel(b.dataset.lv
 
 /* ===== dev check: every kanji must sit inside <ruby> ===== */
 function checkRuby(){const tw=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=tw.nextNode()){if(/[一-鿿]/.test(n.nodeValue)&&!n.parentElement.closest('ruby,script,style,title'))console.warn('Kanji without furigana:',n.nodeValue)}}
+
+/* ===== back gesture / back button: one history guard entry; back closes the topmost layer ===== */
+let bkArm=0,bkT=null;
+function bkPush(){try{if(!(history.state&&history.state.obake))history.pushState({obake:1},'')}catch(e){}}
+function bkBack(){
+  if(!pop.hidden){hidePop();return true}
+  const ib=$('#inst');if(ib&&!ib.hidden){ib.hidden=true;return true}
+  if(hkOn){if(hkBub)hkUnsay();else hkClose();return true}
+  if(curMode){if(GAMES[curMode]==='story'&&st4().s){const lb=$('#mBody [data-g="lib"]');if(lb){lb.click();return true}}closeMode();return true}
+  return false}
+addEventListener('popstate',()=>{
+  if(bkBack()){clearTimeout(bkT);bkArm=0;bkPush();return}
+  if(!started||bkArm)return;
+  bkArm=1;clearToasts();eggRect=null;SFX.ting();
+  toast(innerWidth/2,innerHeight*.55,'{もう いちど=ещё раз} {もどると=если вернуться назад|〜と: «если / когда»}、{ゲームが=игра (が)} {おわります=закончится|Ещё один жест «назад» — выход из игры}');
+  clearTimeout(bkT);bkT=setTimeout(()=>{bkArm=0;bkPush()},3000)});
 
 /* ===== boot ===== */
 document.body.insertAdjacentHTML('beforeend',`<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>${Y5DEFS}</defs></svg>`);
