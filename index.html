@@ -1230,7 +1230,7 @@ body.cover>#street *,#scn.scrolling *{animation-play-state:paused!important}
 .gs-pg.empty .gs-sw{opacity:.11;filter:grayscale(1)}
 .gs-pg.empty .gs-name{opacity:.28}
 .gs-pg.empty.sec .gs-sw{opacity:.38;filter:none;top:37%;width:calc(var(--pw)*.6)}
-.gs-sh{position:absolute;left:8%;right:8%;bottom:6%;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;font-size:calc(var(--pw)*.06);line-height:2;font-weight:700;color:#4a2e6e}
+.gs-sh{position:absolute;left:6%;right:6%;bottom:6%;word-break:keep-all;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;font-size:calc(var(--pw)*.06);line-height:2;font-weight:700;color:#4a2e6e}
 .gs-sh b{font:900 calc(var(--pw)*.07)/1.3 var(--f-body);color:#6c3aa6;letter-spacing:.06em}
 .gs-sh .hint{color:#7a6a8a;font-size:12px;line-height:1.4;margin:0;max-width:none}
 .gs-pg.sec:not(.empty){box-shadow:inset 0 0 0 1px rgba(108,58,166,.3),inset 0 0 calc(var(--pw)*.16) rgba(140,90,200,.22)}
@@ -1277,31 +1277,21 @@ body.cover>#street *,#scn.scrolling *{animation-play-state:paused!important}
 .gs-cnt{font:900 15px/1 var(--f-body);color:var(--paper-dim);padding:6px 11px;border-radius:999px;border:1px solid var(--line);letter-spacing:.05em}
 .gs-sub{min-height:0;margin:0;font:900 18px/2 var(--f-body);color:var(--violet);text-shadow:0 0 14px rgba(196,155,255,.7)}
 .gs-sub:empty{display:none}
-.gs-book{--pw:min(280px,62vw,calc((100dvh - 210px)/1.47));width:100%;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;scroll-snap-type:x proximity;direction:rtl;-webkit-overflow-scrolling:touch;padding:18px 0 22px}
-.gs-book::-webkit-scrollbar{display:none}
-.gs-strip{display:flex;width:max-content;margin:0 auto;padding:0 max(16px,calc(50vw - var(--pw)*.5));perspective:1600px}
-.gs-strip>*{direction:ltr}
-.gs-slot{scroll-snap-align:center;flex:none}
-.gs-book .gs-pg{--pw:min(280px,62vw,calc((100dvh - 210px)/1.47))}
-.gs-slot:nth-child(odd) .gs-pg{background-color:#f1e5cf}
-.gs-slot+.gs-slot .gs-pg{box-shadow:inset -1px 0 0 rgba(90,60,30,.28),inset 0 0 calc(var(--pw)*.12) rgba(140,100,50,.18)}
-.gs-slot:nth-child(even) .gs-pg::before,.gs-slot:nth-child(odd) .gs-pg::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(80,50,20,.13),transparent 9%,transparent 91%,rgba(80,50,20,.1))}
+.gs-book{width:100%;display:flex;justify-content:center;padding:6px 16px 10px;box-sizing:border-box}
+.gs-al{--pw:160px;display:grid;grid-template-columns:repeat(var(--cols,6),var(--pw));gap:var(--gap,6px);direction:rtl;perspective:1600px}
+.gs-al>*{direction:ltr}
+.gs-al .gs-pg{--pw:inherit;cursor:zoom-in;box-shadow:0 10px 26px rgba(0,0,0,.5),inset 0 0 0 1px rgba(90,60,30,.15),inset 0 0 calc(var(--pw)*.12) rgba(140,100,50,.18)}
+.gs-al .gs-pg::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(80,50,20,.12),transparent 9%,transparent 91%,rgba(80,50,20,.1))}
+.gs-al .gs-sh .hint{display:none}
 #gs.open .gs-slot{animation:gsUnf .55s cubic-bezier(.2,.8,.3,1) calc(var(--i)*.07s) both;transform-origin:100% 50%}
 @keyframes gsUnf{from{transform:rotateY(-80deg);opacity:0}to{transform:none;opacity:1}}
-.gs-cv{flex:none;width:calc(var(--pw)*.98);height:calc(var(--pw)*1.47*1.02);align-self:center;border-radius:6px;position:relative;
-  background:radial-gradient(circle at 50% 50%,rgba(255,215,140,.18) 0 2px,transparent 2.5px) 0 0/18px 18px,linear-gradient(135deg,#2b2160,#1a1440 55%,#2b1d50);
-  box-shadow:0 18px 40px rgba(0,0,0,.6),inset 0 0 0 2px rgba(201,162,90,.5),inset 0 0 0 7px rgba(26,20,64,1),inset 0 0 0 8px rgba(201,162,90,.35)}
-.gs-cv{--pw:min(280px,62vw,calc((100dvh - 210px)/1.47))}
-#gs.open .gs-cv{animation:gsUnf .5s ease-out both}
-.gs-slip{position:absolute;right:14%;top:9%;padding:14px 8px;background:#f4ead6;border:1px solid #c9a25a;writing-mode:vertical-rl;font:400 calc(var(--pw)*.12)/1.2 "Yuji Syuku","Yusei Magic","Hiragino Mincho ProN","Yu Mincho","Noto Serif CJK JP","Noto Serif JP",serif;color:#1b1410;box-shadow:0 2px 6px rgba(0,0,0,.35)}
-.gs-slip rt{font:700 .34em var(--f-body);color:#6a4a2c}
+.gs-zoom{position:fixed;inset:0;z-index:2;display:grid;place-items:center;background:rgba(5,3,8,.82);cursor:zoom-out;animation:fadeUp .25s ease-out}
+.gs-zoom .gs-pg{--pw:min(420px,calc(100vw - 40px),calc((100dvh - 60px)/1.47));box-shadow:0 24px 60px rgba(0,0,0,.7),inset 0 0 0 1px rgba(90,60,30,.15),inset 0 0 40px rgba(140,100,50,.18)}
+.gs-zoom .gs-sh .hint{display:block;font-size:13px}
+#gs{isolation:isolate}
 .gs-row{display:flex;gap:10px;justify-content:center}
 .gs-row .g-btn{padding:6px 18px;font-size:15px}
-.gs-hint{margin:0;font-size:12px;color:var(--muted);text-align:center;padding:0 16px}
-@media (max-height:500px) and (orientation:landscape){
-  #gs{gap:4px}.gs-top h3{font-size:20px}.gs-book{padding:8px 0 10px}
-  .gs-book,.gs-book .gs-pg,.gs-cv{--pw:min(240px,calc((100dvh - 120px)/1.47))}
-  .gs-hint{display:none}}
+@media (max-height:500px) and (orientation:landscape){#gs{gap:2px}.gs-top h3{font-size:20px}.gs-book{padding:4px 12px 6px}}
 .lab-shot{z-index:76}
 @media (prefers-reduced-motion:reduce){.gs-hk{display:none}.gs-pg.fresh *,.gs-pg.fresh,#gs.open .gs-slot,#gs.open .gs-cv{animation-duration:.01s!important;animation-delay:0s!important}}
 </style>
@@ -1843,8 +1833,7 @@ body.cover>#street *,#scn.scrolling *{animation-play-state:paused!important}
   <button class="g-btn sv-x" data-sv="x">とじる</button>
 </div></div>
 <div id="gs" hidden role="dialog" aria-modal="true"><div class="gs-top"><h3><ruby>御朱印帳<rt>ごしゅいんちょう</rt></ruby></h3><span class="gs-cnt" data-tip="Сколько печатей собрано"></span></div><p class="gs-sub"></p>
-  <div class="gs-book"><div class="gs-strip"></div></div>
-  <p class="hint gs-hint">Книжка листается справа налево, как настоящая японская. Пустые страницы ждут печатей.</p>
+  <div class="gs-book"><div class="gs-al"></div></div><div class="gs-zoom" hidden></div>
   <div class="gs-row"><button class="g-btn go" data-gs="png" data-tip="Сохранить всю книжку картинкой">がぞうを ほぞん</button><button class="g-btn" data-gs="x" data-tip="Закрыть книжку">とじる</button></div></div>
 <div id="inst" hidden role="dialog" aria-modal="true"><div class="in-card"><h3 class="in-t">ホーム<ruby>画面<rt>がめん</rt></ruby>に <ruby>追加<rt>ついか</rt></ruby></h3><div class="in-b"></div><button class="g-btn go" data-x="1">とじる</button></div></div>
 
@@ -4517,18 +4506,24 @@ function gsStreet(){const p=gsPend;gsPend=null;if(!p)return;const s=$(`.seal[dat
 /* --- the book --- */
 const GSB=$('#gs');
 function gsCover(back){return `<div class="gs-cv${back?' back':''}">${back?'':`<div class="gs-slip"><ruby>御朱印帳<rt>ごしゅいんちょう</rt></ruby></div>`}</div>`}
+function gsFit(){const al=GSB.querySelector('.gs-al'),top=GSB.querySelector('.gs-top').offsetHeight+GSB.querySelector('.gs-sub').offsetHeight+GSB.querySelector('.gs-row').offsetHeight;
+ const Wd=Math.min(innerWidth,1400)-32,Ht=innerHeight-top-56;let best=null;
+ [[6,1],[3,2],[2,3]].forEach(([c,r])=>{const g=c===6?4:8,pw=Math.min(300,(Wd-g*(c-1))/c,(Ht-g*(r-1))/r/1.47);if(!best||pw>best.pw)best={c,g,pw}});
+ al.style.setProperty('--cols',best.c);al.style.setProperty('--gap',best.g+'px');al.style.setProperty('--pw',Math.floor(best.pw)+'px')}
+addEventListener('resize',()=>{if(!GSB.hidden)gsFit()});
 function gsOpen(focus,fresh){hidePop();hideTip();if(prog.sn){fresh=6;focus=6;delete prog.sn;saveProg()}
  const ids=[1,2,3,4,5,6],got=[1,2,3,4,5].filter(gsHas).length;
  GSB.querySelector('.gs-cnt').innerHTML=`${got} / 5`;
  GSB.querySelector('.gs-sub').innerHTML=fresh==6?jp('{ひみつの=тайная} {ごしゅいん=печать}！'):'';
- GSB.querySelector('.gs-strip').innerHTML=gsCover()+ids.map((id,i)=>`<div class="gs-slot" style="--i:${i+1}">${gsPage(id,fresh==id?{fresh:1,d:1}:{})}</div>`).join('')+gsCover(1);
- GSB.hidden=false;GSB.classList.remove('open');void GSB.offsetWidth;GSB.classList.add('open');SFX.whoosh();
+ GSB.querySelector('.gs-zoom').hidden=true;GSB.querySelector('.gs-al').innerHTML=ids.map((id,i)=>`<div class="gs-slot" style="--i:${i+1}">${gsPage(id,fresh==id?{fresh:1,d:1}:{})}</div>`).join('');
+ GSB.hidden=false;gsFit();GSB.classList.remove('open');void GSB.offsetWidth;GSB.classList.add('open');SFX.whoosh();
  if(!curMode&&!hkOn)setCover(false),setTimeout(()=>{if(!GSB.hidden&&!curMode&&!hkOn)document.body.classList.add('cover')},500);
- const t=GSB.querySelector(`.gs-pg[data-id="${focus||1}"]`);
- requestAnimationFrame(()=>{if(t)t.parentNode.scrollIntoView({inline:'center',block:'nearest'})});
  if(fresh==6){gsKnock(1);setTimeout(()=>SFX.shimmer(),2300)}}
-function gsClose(){GSB.hidden=true;GSB.querySelector('.gs-strip').innerHTML='';if(!curMode&&!hkOn)document.body.classList.remove('cover');SFX.tick()}
-GSB.addEventListener('click',e=>{const b=e.target.closest('[data-gs]');if(!b){if(e.target===GSB)gsClose();return}
+function gsClose(){const z=GSB.querySelector('.gs-zoom');if(!z.hidden){z.hidden=true;z.innerHTML='';SFX.tick();return}GSB.hidden=true;GSB.querySelector('.gs-al').innerHTML='';if(!curMode&&!hkOn)document.body.classList.remove('cover');SFX.tick()}
+GSB.addEventListener('click',e=>{if(e.target.closest('.w'))return;const z=GSB.querySelector('.gs-zoom');
+ if(!z.hidden&&e.target.closest('.gs-zoom')){gsClose();return}
+ const pg=e.target.closest('.gs-al .gs-pg');if(pg){z.innerHTML=gsPage(+pg.dataset.id);z.hidden=false;hideTip();SFX.tick();return}
+ const b=e.target.closest('[data-gs]');if(!b){if(e.target===GSB)gsClose();return}
  if(b.dataset.gs==='x')gsClose();else if(b.dataset.gs==='png')gsSave(b)});
 $('#gsBtn').addEventListener('click',e=>{e.stopPropagation();gsOpen()});
 $('.book-label').addEventListener('click',e=>{e.stopPropagation();gsOpen()});
