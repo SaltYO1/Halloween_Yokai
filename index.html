@@ -1293,6 +1293,12 @@ body.cover>#street *,#scn.scrolling *{animation-play-state:paused!important}
 .gs-row .g-btn{padding:6px 18px;font-size:15px}
 @media (max-height:500px) and (orientation:landscape){#gs{gap:2px}.gs-top h3{font-size:20px}.gs-book{padding:4px 12px 6px}}
 .lab-shot{z-index:76}
+/* Safari only (v22): WebKit lifts furigana above the whole line-height of the base, so with our tall line-height (2–2.2) the gap was huge on Macs. Chrome/Firefox ignore this block. */
+@supports (hanging-punctuation:first) and (-webkit-appearance:none){
+  ruby{line-height:1}
+  rt{line-height:1}
+  .gs-name ruby,.gs-hp ruby,.gs-date ruby,.hk-pv ruby{line-height:inherit}
+}
 @media (prefers-reduced-motion:reduce){.gs-hk{display:none}.gs-pg.fresh *,.gs-pg.fresh,#gs.open .gs-slot,#gs.open .gs-cv{animation-duration:.01s!important;animation-delay:0s!important}}
 </style>
 
