@@ -89,6 +89,13 @@ rt{font-family:var(--f-body);font-weight:700;font-size:.48em;letter-spacing:0;op
 .fwf{opacity:0;animation:flash 1.2s ease-out .65s both}
 @keyframes flash{0%{opacity:.6}100%{opacity:0}}
 @keyframes moth{to{transform:rotate(360deg)}}
+/* v23: Hanako's window teases — a red glow and two eyes peek up every few seconds */
+.hn-glow{opacity:0;animation:hnGlow 7s ease-in-out infinite}
+@keyframes hnGlow{0%,55%,100%{opacity:0}64%,82%{opacity:.4}}
+.hn-peek{transform:translateY(26px);animation:hnPeek 7s ease-in-out infinite}
+@keyframes hnPeek{0%,60%,92%,100%{transform:translateY(26px)}68%,84%{transform:translateY(0)}}
+.hn-tease{transition:opacity .2s}
+.on .hn-tease{opacity:0}
 
 /* locations */
 /* hovering: cheap opacity/brightness changes only, with soft easing */
@@ -1669,6 +1676,11 @@ body.cover>#street *,#scn.scrolling *{animation-play-state:paused!important}
 </g>
 <g class="egg" data-egg="hanako">
   <rect x="2976" y="420" width="44" height="60" fill="transparent"/>
+  <clipPath id="clipHana"><rect x="2976" y="420" width="44" height="60"/></clipPath>
+  <g class="hn-tease" clip-path="url(#clipHana)">
+    <rect class="hn-glow" x="2976" y="420" width="44" height="60" fill="#d0242a"/>
+    <g class="hn-peek"><path d="M2984,482 Q2984,456 2998,456 Q3012,456 3012,482Z" fill="#050407"/><ellipse cx="2998" cy="476" rx="8" ry="8.5" fill="#e6dfd0"/><path d="M2988,466 Q2998,461 3008,466 L3008,471 L2988,471Z" fill="#050407"/><g class="blink"><circle cx="2994.5" cy="474.5" r="1.5" fill="#120a06"/><circle cx="3001.5" cy="474.5" r="1.5" fill="#120a06"/></g></g>
+  </g>
   <g class="hanako">
     <path d="M2987,446 Q2998,428 3009,446 L3009,460 L2987,460Z" fill="#050407"/>
     <ellipse cx="2998" cy="451" rx="7" ry="8" fill="#e6dfd0"/>
